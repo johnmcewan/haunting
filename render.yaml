@@ -2,7 +2,7 @@ databases:
   - name: dbs_haunting
     plan: free
     databaseName: dbs_haunting
-    user: postgres
+    user: ghost
 
 services:
   - type: web
