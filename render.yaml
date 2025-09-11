@@ -10,7 +10,7 @@ services:
     name: haunting
     runtime: python
     buildCommand: './build.sh'
-    startCommand: 'python -m gunicorn haunting2025.asgi:application -k uvicorn.workers.UvicornWorker' 
+    startCommand: 'python -m gunicorn hlawrence.haunting2025.asgi:application -k uvicorn.workers.UvicornWorker' 
     envVars:
       - key: DATABASE_URL
         fromDatabase:
