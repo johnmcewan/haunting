@@ -1,24 +1,146 @@
+{% load static %}
+
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Hello Django on Render!</title>
-
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-          crossorigin="anonymous">
+    <title>Haunted Lawrence - Ghostly Tales of Kansas</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Griffy:wght@400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'mapping/styles-haunting.css' %}">
 </head>
+
 <body>
-<main class="container">
-    <div class="row text-center justify-content-center">
-        <div class="col">
-            <h1 class="display-4">Hello World!</h1>
+    <!-- Animated background particles -->
+    <div class="particles" id="particles"></div>
+
+    <header class="header">
+        <h1 class="title">HAUNTED LAWRENCE</h1>
+        <p class="subtitle">Ghostly Tales & Spectral Secrets of Kansas</p>
+        <p class="description">
+            Discover the chilling stories and paranormal mysteries that lurk within the historic streets of Lawrence, Kansas. 
+            From haunted houses to restless spirits, explore the supernatural side of this legendary town.
+        </p>
+    </header>
+
+    <main class="main-content">
+        <div class="map-container">
+            <h2 class="map-title">🏚️ Map of Haunted Locations 🏚️</h2>
+            <div id="map"></div>
         </div>
-    </div>
-</main>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h3 class="card-title">👻 Paranormal Encounters</h3>
+                <p class="card-text">
+                    Lawrence is home to numerous documented paranormal activities. From the historic Eldridge Hotel 
+                    to the mysterious campus buildings at KU, each location holds its own dark secrets and ghostly residents.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3 class="card-title">🕯️ Historical Mysteries</h3>
+                <p class="card-text">
+                    Built on a foundation of Civil War history and frontier tales, Lawrence's haunted locations 
+                    are deeply intertwined with the city's tumultuous past. Each spirit has a story to tell.
+                </p>
+            </div>
+
+            <div class="info-card">
+                <h3 class="card-title">🌙 Night Tours Available</h3>
+                <p class="card-text">
+                    Join us for guided tours through Lawrence's most haunted locations. Experience firsthand 
+                    the supernatural phenomena that have made this city a hotspot for paranormal investigators.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">
+            © 2024 Haunted Lawrence - Based on historical research and local folklore
+        </p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Initialize the map with dark theme
+        var map = L.map('map').setView([38.9717, -95.2353], 13);
+
+        // Add a dark tile layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Custom icon for haunted locations
+        var hauntedIcon = L.divIcon({
+            html: '👻',
+            iconSize: [30, 30],
+            className: 'custom-marker'
+        });
+
+        // Add markers for haunted locations
+        var locations = [
+            {
+                coords: [38.9717, -95.2353],
+                name: 'Downtown Lawrence',
+                description: 'Historic downtown area with multiple haunted buildings'
+            },
+            {
+                coords: [38.9576, -95.2478],
+                name: 'University of Kansas',
+                description: 'Campus buildings with reported paranormal activity'
+            },
+            {
+                coords: [38.9704, -95.2352],
+                name: 'Eldridge Hotel',
+                description: 'Historic hotel with numerous ghost sightings'
+            }
+        ];
+
+        locations.forEach(function(location) {
+            L.marker(location.coords, {icon: hauntedIcon})
+                .addTo(map)
+                .bindPopup(`<strong>${location.name}</strong><br>${location.description}`)
+                .on('mouseover', function (e) {
+                    this.openPopup();
+                });
+        });
+
+        // Add spooky map styling
+        map.on('zoomend', function() {
+            document.querySelectorAll('.leaflet-marker-icon').forEach(function(marker) {
+                marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
+            });
+        });
+    </script>
 </body>
 </html>

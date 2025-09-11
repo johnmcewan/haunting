@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+    color: #e0e0e0;
+    font-family: 'Cinzel', serif;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Animated background particles */
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* Header styles */
+.header {
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    border-bottom: 3px solid #8B4513;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.title {
+    font-family: 'Creepster', cursive;
+    font-size: 3.5rem;
+    color: #ff6b35;
+    text-shadow: 3px 3px 0px #000, -3px -3px 0px #000, 3px -3px 0px #000, -3px 3px 0px #000,
+                 0 0 20px #ff6b35, 0 0 40px #ff6b35;
+    margin-bottom: 0.5rem;
+    animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+.subtitle {
+    font-family: 'Griffy', cursive;
+    font-size: 1.3rem;
+    color: #d4a574;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 1rem;
+}
+
+.description {
+    font-size: 1.1rem;
+    color: #c0c0c0;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    padding: 0 1rem;
+}
+
+/* Main content */
+.main-content {
+    position: relative;
+    z-index: 10;
+    padding: 2rem;
+}
+
+.map-container {
+    background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 50px rgba(255, 107, 53, 0.1);
+    border: 2px solid #8B4513;
+}
+
+.map-title {
+    text-align: center;
+    font-family: 'Griffy', cursive;
+    font-size: 2rem;
+    color: #ff6b35;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    border-radius: 10px;
+    border: 3px solid #8B4513;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Info cards */
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem auto;
+    max-width: 1200px;
+}
+
+.info-card {
+    background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 2px solid #8B4513;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(255, 107, 53, 0.2);
+}
+
+.info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b35, #d4a574, #ff6b35);
+}
+
+.card-title {
+    font-family: 'Griffy', cursive;
+    font-size: 1.5rem;
+    color: #ff6b35;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.card-text {
+    line-height: 1.6;
+    color: #c0c0c0;
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 3px solid #8B4513;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-text {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .main-content {
+        padding: 1rem;
+    }
+    
+    .map-container {
+        padding: 1rem;
+    }
+    
+    #map {
+        height: 400px;
+    }
+}
+
+/* Custom map marker styles */
+.custom-marker {
+    background-color: #ff6b35;
+    border: 3px solid #8B4513;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
+}
