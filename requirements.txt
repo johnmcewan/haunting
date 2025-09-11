@@ -26,7 +26,8 @@ psycopg2-binary==2.9.10
 #sqlparse==0.5.3
 #tk==8.6.13
 typing_extensions==4.15.0
-tzdata==2025b
+### changed tzdata from 2025b
+tzdata==2025.2
 #ucrt==10.0.26100.0
 uvicorn==0.35.0
 #vc==14.3
