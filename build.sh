@@ -6,7 +6,7 @@ set -o errexit
 pip install -r requirements.txt
 
 # convert our static asset files on Render
-python ./haunting/manage.py collectstatic --no-input
+python manage.py collectstatic --no-input
 
 # apply any database migrations that are outstanding
-python ./haunting/manage.py migrate
+python manage.py migrate
