@@ -4,3 +4,6 @@ from django.shortcuts import render
 
 def index(request): 
     return render(request, 'mapping/index.html', {}) 
+
+def contribute(request): 
+    return render(request, 'mapping/contribute.html', {}) 
