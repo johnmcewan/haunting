@@ -61,11 +61,11 @@
 
     <footer class="footer">
         <p class="footer-text">
-            © 2024 Haunted Lawrence - Based on historical research and local folklore
+            © 2025 Haunted Lawrence - Based on historical research and local folklore
         </p>
     </footer>
 
-    {{ locationdata|json_script:"mapdata1" }}
+    {{ location_dict|json_script:"mapdata1" }}
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -109,82 +109,33 @@
             className: 'custom-marker'
         });
 
-        // Function to handle each GeoJSON feature
-        function onEachFeature(feature, layer) {
-            // Does this feature have a property named popupContent?
-            if (feature.properties && feature.properties.popupContent) {
-                layer.bindPopup(feature.properties.popupContent);
+        // Add markers for haunted locations
+        var locations = [
+            {
+                coords: [38.9717, -95.2353],
+                name: 'Downtown Lawrence',
+                description: 'Historic downtown area with multiple haunted buildings'
+            },
+            {
+                coords: [38.9576, -95.2478],
+                name: 'University of Kansas',
+                description: 'Campus buildings with reported paranormal activity'
+            },
+            {
+                coords: [38.9704, -95.2352],
+                name: 'Eldridge Hotel',
+                description: 'Historic hotel with numerous ghost sightings'
             }
-            
-            // Add hover effect to open popup
-            layer.on('mouseover', function (e) {
-                this.openPopup();
-            });
-        }
+        ];
 
-        // Load and display haunted locations from Django data
-        try {
-            var geojsonFeature1 = JSON.parse(document.getElementById('mapdata1').textContent);
-            
-            console.log(geojsonFeature1);
-
-            // Check if we have valid GeoJSON data with features
-            if (geojsonFeature1 && geojsonFeature1.features && geojsonFeature1.features.length > 0) {
-                
-                // Add GeoJSON layer with custom styling and popup handling
-                L.geoJSON(geojsonFeature1, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, {icon: hauntedIcon});
-                    },
-                    onEachFeature: onEachFeature
-                }).addTo(map);
-
-                // Calculate bounds to fit all markers
-                var geojsonLayer = L.geoJSON(geojsonFeature1);
-                if (geojsonLayer.getBounds().isValid()) {
-                    map.fitBounds(geojsonLayer.getBounds(), {padding: [20, 20]});
-                }
-                
-            } else {
-                // Fallback to sample locations if no data
-                console.log('No haunted location data found, using sample locations');
-                addSampleLocations();
-            }
-        } catch (error) {
-            console.error('Error parsing mapdata1:', error);
-            // Fallback to sample locations if parsing fails
-            addSampleLocations();
-        }
-
-        // Fallback function for sample locations
-        function addSampleLocations() {
-            var sampleLocations = [
-                {
-                    coords: [38.9717, -95.2353],
-                    name: 'Downtown Lawrence',
-                    description: 'Historic downtown area with multiple haunted buildings'
-                },
-                {
-                    coords: [38.9576, -95.2478],
-                    name: 'University of Kansas',
-                    description: 'Campus buildings with reported paranormal activity'
-                },
-                {
-                    coords: [38.9704, -95.2352],
-                    name: 'Eldridge Hotel',
-                    description: 'Historic hotel with numerous ghost sightings'
-                }
-            ];
-
-            sampleLocations.forEach(function(location) {
-                L.marker(location.coords, {icon: hauntedIcon})
-                    .addTo(map)
-                    .bindPopup(`<strong>${location.name}</strong><br>${location.description}`)
-                    .on('mouseover', function (e) {
-                        this.openPopup();
-                    });
-            });
-        }
+        locations.forEach(function(location) {
+            L.marker(location.coords, {icon: hauntedIcon})
+                .addTo(map)
+                .bindPopup(`<strong>${location.name}</strong><br>${location.description}`)
+                .on('mouseover', function (e) {
+                    this.openPopup();
+                });
+        });
 
         // Add spooky map styling
         map.on('zoomend', function() {
@@ -192,13 +143,6 @@
                 marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
             });
         });
-
-        // Apply initial styling to markers
-        setTimeout(function() {
-            document.querySelectorAll('.leaflet-marker-icon').forEach(function(marker) {
-                marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
-            });
-        }, 500);
     </script>
 </body>
 </html>

@@ -14,8 +14,9 @@ def index(request):
 	template = loader.get_template('mapping/index.html')
 
 	print (mapdic)
+
 	context = {
-		'mapdic': mapdic,
+		'locationdata': mapdic,
 		}
 
 	return HttpResponse(template.render(context, request))
