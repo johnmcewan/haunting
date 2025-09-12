@@ -21,7 +21,6 @@ class Location(models.Model):
 class Haunting(models.Model):
 	id_haunting = models.AutoField(primary_key=True)
 	haunting_name = models.TextField(blank=True, null=True)
-	haunting_type = models.IntegerField(blank=True, null=True)
 	haunting_booktext = models.TextField(blank=True, null=True)
 	haunting_pagestart = models.IntegerField(blank=True, null=True)
 	haunting_pageend = models.IntegerField(blank=True, null=True)
