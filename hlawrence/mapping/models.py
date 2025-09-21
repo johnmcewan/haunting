@@ -1,25 +1,21 @@
 from django.db import models
 
-class Location(models.Model):
-	id_location = models.AutoField(primary_key=True)
-	location_name = models.TextField(blank=True, null=True)
-	location_namecurrent = models.TextField(blank=True, null=True)
-	location_nameformer = models.TextField(blank=True, null=True)
-	location_street = models.TextField(blank=True, null=True)
-	location_housenumber = models.IntegerField(blank=True, null=True)
-	location_houseletter = models.TextField(blank=True, null=True)
-	longitude = models.FloatField(blank=True, null=True)
-	latitude = models.FloatField(blank=True, null=True)
-	location_history = models.TextField(blank=True, null=True)
-	location_notes = models.TextField(blank=True, null=True)
-	location_photo = models.TextField(blank=True, null=True)
+
+class Contributor(models.Model):
+	id_contributor = models.AutoField(primary_key=True)
+	contributor_firstname = models.TextField(blank=True, null=True)
+	contributor_secondname = models.TextField(blank=True, null=True)
+	contributor_notes = models.TextField(blank=True, null=True)
+	contributor_active = models.TextField(blank=True, null=True)
+	contributor_photograph = models.TextField(blank=True, null=True)
 
 	def __str__(self): 
-		return self.location_name or ''
+		return self.contributor_secondname or ''
 
 	class Meta:
 		managed = True
-		db_table = 'location'
+		db_table = 'contributor'
+
 
 class Haunting(models.Model):
 	id_haunting = models.AutoField(primary_key=True)
@@ -55,3 +51,25 @@ class Hauntingtype(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'hauntingtype'
+
+
+class Location(models.Model):
+	id_location = models.AutoField(primary_key=True)
+	location_name = models.TextField(blank=True, null=True)
+	location_namecurrent = models.TextField(blank=True, null=True)
+	location_nameformer = models.TextField(blank=True, null=True)
+	location_street = models.TextField(blank=True, null=True)
+	location_housenumber = models.IntegerField(blank=True, null=True)
+	location_houseletter = models.TextField(blank=True, null=True)
+	longitude = models.FloatField(blank=True, null=True)
+	latitude = models.FloatField(blank=True, null=True)
+	location_history = models.TextField(blank=True, null=True)
+	location_notes = models.TextField(blank=True, null=True)
+	location_photo = models.TextField(blank=True, null=True)
+
+	def __str__(self): 
+		return self.location_name or ''
+
+	class Meta:
+		managed = True
+		db_table = 'location'
