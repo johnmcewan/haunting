@@ -38,6 +38,14 @@ body {
     100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
+/* generic page structure */
+.grid {
+    display: grid;
+    grid-template-columns: 1fr repeat(9, minmax(auto, 8em)) 1fr;
+    grid-template-rows: minmax(1em, auto);
+}
+
+
 /* Header styles */
 .header {
     background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
@@ -47,6 +55,8 @@ body {
     z-index: 10;
     border-bottom: 3px solid #8B4513;
     box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    grid-row: 3;    
+    grid-column: 1/12;
 }
 
 .title {
@@ -86,6 +96,8 @@ body {
     position: relative;
     z-index: 10;
     padding: 2rem;
+    grid-row: 4/8;
+    grid-column: 1/12;
 }
 
 .map-container {
@@ -98,6 +110,8 @@ body {
                 inset 0 1px 0 rgba(255,255,255,0.1),
                 0 0 50px rgba(255, 107, 53, 0.1);
     border: 2px solid #8B4513;
+    grid-row: 6;
+    grid-column: 3/8;
 }
 
 .map-title {
@@ -124,6 +138,7 @@ body {
     gap: 2rem;
     margin: 3rem auto;
     max-width: 1200px;
+    grid-row: 7;
 }
 
 .info-card {
@@ -174,6 +189,8 @@ body {
     border-top: 3px solid #8B4513;
     position: relative;
     z-index: 10;
+    grid-row: 9;
+    grid-column: 1/12;
 }
 
 .footer-text {
