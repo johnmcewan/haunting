@@ -13,14 +13,11 @@ def index(request):
 
 	template = loader.get_template('mapping/index.html')
 
-	print (mapdic)
-
 	context = {
 		'locationdata': mapdic,
 		}
 
 	return HttpResponse(template.render(context, request))
-
 
 
 def contribute(request): 

@@ -3,11 +3,14 @@ from django.db import models
 class Location(models.Model):
 	id_location = models.AutoField(primary_key=True)
 	location_name = models.TextField(blank=True, null=True)
+	location_namecurrent = models.TextField(blank=True, null=True)
+	location_nameformer = models.TextField(blank=True, null=True)
 	location_street = models.TextField(blank=True, null=True)
 	location_housenumber = models.IntegerField(blank=True, null=True)
 	location_houseletter = models.TextField(blank=True, null=True)
 	longitude = models.FloatField(blank=True, null=True)
 	latitude = models.FloatField(blank=True, null=True)
+	location_history = models.TextField(blank=True, null=True)
 	location_notes = models.TextField(blank=True, null=True)
 	location_photo = models.TextField(blank=True, null=True)
 
@@ -21,6 +24,11 @@ class Location(models.Model):
 class Haunting(models.Model):
 	id_haunting = models.AutoField(primary_key=True)
 	haunting_name = models.TextField(blank=True, null=True)
+	haunting_physicaldetails = models.TextField(blank=True, null=True)
+	haunting_deathstory =models.TextField(blank=True, null=True)
+	haunting_discoveryofhaunting = models.TextField(blank=True, null=True)
+	haunting_behavior = models.TextField(blank=True, null=True)
+	haunting_timeline = models.TextField(blank=True, null=True)
 	haunting_booktext = models.TextField(blank=True, null=True)
 	haunting_pagestart = models.IntegerField(blank=True, null=True)
 	haunting_pageend = models.IntegerField(blank=True, null=True)
@@ -35,7 +43,7 @@ class Haunting(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'haunting'
-
+		
 
 class Hauntingtype(models.Model):
 	id_hauntingtype = models.AutoField(primary_key=True)
