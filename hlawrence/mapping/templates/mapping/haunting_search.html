@@ -5,8 +5,12 @@
 {% block content %}
 
     <main class="main-content">
-        <div>This is where we will tell you all about this project
+        {% for g in haunting_set.values %}
+        <div>
+            {{g}}
         </div>
+
+        {% endfor %}
     </main>
 
     <script>

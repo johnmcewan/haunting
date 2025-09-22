@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Contributor(models.Model):
@@ -39,7 +40,6 @@ class Haunting(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'haunting'
-		
 
 class Hauntingtype(models.Model):
 	id_hauntingtype = models.AutoField(primary_key=True)
@@ -73,3 +73,103 @@ class Location(models.Model):
 	class Meta:
 		managed = True
 		db_table = 'location'
+
+
+
+class HauntedStory(models.Model):
+    title = models.CharField(max_length=200, help_text="Title of your haunting story")
+    story = models.TextField(help_text="Detailed description of your paranormal experience")
+    author = models.CharField(max_length=100, blank=True, null=True, help_text="Your name (optional)")
+    
+    # Location coordinates
+    latitude = models.DecimalField(
+        max_digits=9, 
+        decimal_places=6,
+        validators=[
+            MinValueValidator(38.9),  # Southern boundary of Lawrence area
+            MaxValueValidator(39.1)   # Northern boundary of Lawrence area
+        ],
+        help_text="Latitude coordinate of the haunting location"
+    )
+    longitude = models.DecimalField(
+        max_digits=9, 
+        decimal_places=6,
+        validators=[
+            MinValueValidator(-95.4),  # Western boundary of Lawrence area
+            MaxValueValidator(-95.1)   # Eastern boundary of Lawrence area
+        ],
+        help_text="Longitude coordinate of the haunting location"
+    )
+    
+    # Optional date when the experience occurred
+    date_occurred = models.DateField(blank=True, null=True, help_text="When did this haunting occur?")
+    
+    # Submission tracking
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False, help_text="Admin approval for public display")
+    featured = models.BooleanField(default=False, help_text="Featured story")
+    
+    # Contact info (not displayed publicly)
+    submitter_email = models.EmailField(blank=True, null=True, help_text="Contact email (not displayed publicly)")
+    
+    class Meta:
+        ordering = ['-submitted_at']
+        verbose_name = "Haunted Story"
+        verbose_name_plural = "Haunted Stories"
+    
+    def __str__(self):
+        return f"{self.title} ({self.submitted_at.strftime('%Y-%m-%d')})"
+    
+    @property
+    def display_author(self):
+        """Return author name or 'Anonymous' if no author provided"""
+        return self.author if self.author else "Anonymous"
+    
+    @property
+    def coordinate_string(self):
+        """Return formatted coordinate string"""
+        return f"{self.latitude}, {self.longitude}"
+    
+    def get_geojson_feature(self):
+        """Return GeoJSON feature representation"""
+        return {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [float(self.longitude), float(self.latitude)]
+            },
+            "properties": {
+                "title": self.title,
+                "author": self.display_author,
+                "story": self.story,
+                "date_occurred": self.date_occurred.isoformat() if self.date_occurred else None,
+                "submitted_at": self.submitted_at.isoformat(),
+                "featured": self.featured,
+                "popupContent": f"""
+                    <div class="story-popup">
+                        <h4>{self.title}</h4>
+                        <p><strong>By:</strong> {self.display_author}</p>
+                        {f'<p><strong>Date:</strong> {self.date_occurred.strftime("%B %d, %Y")}</p>' if self.date_occurred else ''}
+                        <p class="story-preview">{self.story[:200]}{'...' if len(self.story) > 200 else ''}</p>
+                        <small>Submitted: {self.submitted_at.strftime('%B %d, %Y')}</small>
+                    </div>
+                """
+            }
+        }
+
+
+# # Additional model for categorizing types of hauntings (optional)
+# class HauntingCategory(models.Model):
+#     name = models.CharField(max_length=100)
+#     icon = models.CharField(max_length=10, help_text="Emoji or icon for this category")
+#     description = models.TextField(blank=True)
+    
+#     class Meta:
+#         verbose_name_plural = "Haunting Categories"
+    
+#     def __str__(self):
+#         return self.name
+
+
+# You can add this field to HauntedStory if you want categories
+# category = models.ForeignKey(HauntingCategory, on_delete=models.SET_NULL, null=True, blank=True)

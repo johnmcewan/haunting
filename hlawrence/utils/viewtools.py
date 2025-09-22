@@ -1,6 +1,32 @@
 from mapping.models import * 
 import statistics
 
+def haunting_searchset():
+	stories = Haunting.objects.all().select_related(
+		'fk_location__location_name',
+		'fk_hauntingtype__hauntingtype').values(
+		'id_haunting',
+		'haunting_name',
+		'haunting_storyabstract',
+		'fk_location__location_name',
+		'fk_hauntingtype__hauntingtype',
+		)
+
+	story_dict = {}
+
+	for g in stories:
+		ghost = {}
+
+		ghost['id_haunting'] = g['id_haunting']
+		ghost['haunting_name'] = g['haunting_name']
+		ghost['haunting_storyabstract'] = g['haunting_storyabstract']
+		ghost['location_name'] = g['fk_location__location_name']
+		ghost['hauntingtype'] = g['fk_hauntingtype__hauntingtype']
+
+		story_dict[ghost['id_haunting']] = ghost
+
+	return(story_dict)
+
 def locationgather():
 
 	locationobject = Haunting.objects.all().select_related(

@@ -4,15 +4,279 @@
 
 {% block content %}
 
-    <main class="main-content">
-        <div>
+<main class="main-content">
+    <div class="story-submission-container">
+        <div class="submission-header">
+            <h2 class="submission-title">👻 Share Your Haunting Experience 👻</h2>
+            <p class="submission-subtitle">
+                Have you encountered something supernatural in Lawrence? Share your story and mark the exact location where it happened.
+            </p>
         </div>
-    </main>
 
-    <script>
-        // Initialize particles
-        createParticles();
-    </script>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="message {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="submission-content">
+            <!-- Location Selection Section -->
+            <div class="location-selection">
+                <h3 class="section-title">📍 Select Location</h3>
+                <p class="instruction">Click anywhere on the map to place a marker at your haunting location. You can drag the marker to adjust its position.</p>
+                
+                <div class="map-container">
+                    <div id="submission-map"></div>
+                </div>
+                
+                <div class="location-info">
+                    <div class="coordinates-display">
+                        <span class="coord-label">📌 Selected Location:</span>
+                        <span id="coord-display" class="coord-text">Click on the map to select a location</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Story Submission Form -->
+            <div class="story-form-section">
+                <h3 class="section-title">📝 Tell Your Story</h3>
+                
+                <form method="post" class="story-form" id="story-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="title">Story Title *</label>
+                        <input type="text" 
+                               id="title" 
+                               name="title" 
+                               placeholder="e.g., 'The Phantom of Fraser Hall'" 
+                               required
+                               value="{{ form.title.value|default:'' }}">
+                        {% if form.title.errors %}
+                            <div class="error-message">{{ form.title.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="story">Your Haunting Experience *</label>
+                        <textarea id="story" 
+                                  name="story" 
+                                  rows="8" 
+                                  placeholder="Describe what happened... Was it a ghostly apparition? Strange sounds? Unexplained phenomena? Be as detailed as possible (50 characters minimum)."
+                                  required>{{ form.story.value|default:'' }}</textarea>
+                        {% if form.story.errors %}
+                            <div class="error-message">{{ form.story.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="author">Your Name</label>
+                        <input type="text" 
+                               id="author" 
+                               name="author" 
+                               placeholder="Leave blank to submit anonymously"
+                               value="{{ form.author.value|default:'' }}">
+                        {% if form.author.errors %}
+                            <div class="error-message">{{ form.author.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date_occurred">When did this happen?</label>
+                        <input type="date" 
+                               id="date_occurred" 
+                               name="date_occurred"
+                               value="{{ form.date_occurred.value|default:'' }}">
+                        {% if form.date_occurred.errors %}
+                            <div class="error-message">{{ form.date_occurred.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Hidden coordinate fields -->
+                    <input type="hidden" id="latitude" name="latitude" value="{{ form.latitude.value|default:'' }}">
+                    <input type="hidden" id="longitude" name="longitude" value="{{ form.longitude.value|default:'' }}">
+                    
+                    {% if form.latitude.errors %}
+                        <div class="error-message">{{ form.latitude.errors.0 }}</div>
+                    {% endif %}
+                    {% if form.longitude.errors %}
+                        <div class="error-message">{{ form.longitude.errors.0 }}</div>
+                    {% endif %}
+
+                    <div class="form-actions">
+                        <button type="submit" class="submit-btn" id="submit-btn" disabled>
+                            <span class="btn-icon">🎭</span>
+                            <span class="btn-text">Submit Haunting</span>
+                        </button>
+                        <p class="submission-note">
+                            * Your story will be reviewed before appearing on the map
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize particles
+    createParticles();
+
+    // Global variables
+    let submissionMap;
+    let userMarker = null;
+    let existingStories = [];
+
+    // Initialize the submission map
+    function initializeSubmissionMap() {
+        // Create map centered on Lawrence
+        submissionMap = L.map('submission-map').setView([38.9717, -95.2353], 13);
+
+        // Add dark tile layer to match theme
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(submissionMap);
+
+        // Custom icon for user marker
+        const userIcon = L.divIcon({
+            html: '📍',
+            iconSize: [30, 30],
+            className: 'user-location-marker'
+        });
+
+        // Custom icon for existing stories
+        const storyIcon = L.divIcon({
+            html: '👻',
+            iconSize: [25, 25],
+            className: 'existing-story-marker'
+        });
+
+        // Add existing story locations from backend
+        const existingLocations = {{ existing_locations|safe }};
+
+        existingLocations.forEach(location => {
+            L.marker([location.lat, location.lng], {icon: storyIcon})
+                .addTo(submissionMap)
+                .bindPopup(`<strong>Existing Story:</strong><br>${location.title}`)
+                .bindTooltip("Existing haunting location", {permanent: false});
+        });
+
+        // Map click handler
+        submissionMap.on('click', function(e) {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+            
+            // Validate that location is within Lawrence bounds (approximate)
+            if (lat >= 38.9 && lat <= 39.1 && lng >= -95.4 && lng <= -95.1) {
+                placeUserMarker(lat, lng);
+            } else {
+                alert('Please select a location within Lawrence, Kansas!');
+            }
+        });
+
+        // If there are existing coordinates (form errors), place marker
+        const existingLat = document.getElementById('latitude').value;
+        const existingLng = document.getElementById('longitude').value;
+        if (existingLat && existingLng) {
+            placeUserMarker(parseFloat(existingLat), parseFloat(existingLng));
+        }
+    }
+
+    // Function to place user marker
+    function placeUserMarker(lat, lng) {
+        // Remove existing user marker if present
+        if (userMarker) {
+            submissionMap.removeLayer(userMarker);
+        }
+
+        // Create custom icon for user selection
+        const userIcon = L.divIcon({
+            html: '<div class="user-marker-pulse">📍</div>',
+            iconSize: [30, 30],
+            className: 'user-location-marker'
+        });
+
+        // Add new marker at selected location
+        userMarker = L.marker([lat, lng], {
+            draggable: true,
+            icon: userIcon
+        }).addTo(submissionMap);
+
+        // Update coordinates
+        updateCoordinates(lat, lng);
+
+        // Add tooltip
+        userMarker.bindTooltip("Your selected location (drag to adjust)", {permanent: true});
+
+        // Handle marker drag
+        userMarker.on('dragend', function(e) {
+            const newLat = e.target.getLatLng().lat;
+            const newLng = e.target.getLatLng().lng;
+            
+            // Validate new position
+            if (newLat >= 38.9 && newLat <= 39.1 && newLng >= -95.4 && newLng <= -95.1) {
+                updateCoordinates(newLat, newLng);
+            } else {
+                // Snap back to valid location
+                alert('Location must be within Lawrence, Kansas!');
+                userMarker.setLatLng([lat, lng]);
+            }
+        });
+
+        // Add popup with location info
+        userMarker.bindPopup(`
+            <div class="marker-popup">
+                <strong>📍 Selected Location</strong><br>
+                <small>Coordinates: ${lat.toFixed(4)}, ${lng.toFixed(4)}</small><br>
+                <small>Drag marker to adjust position</small>
+            </div>
+        `);
+    }
+
+    // Function to update coordinates in form
+    function updateCoordinates(lat, lng) {
+        // Update hidden form fields
+        document.getElementById('latitude').value = lat.toFixed(6);
+        document.getElementById('longitude').value = lng.toFixed(6);
+
+        // Update display
+        document.getElementById('coord-display').innerHTML = `
+            <strong>${lat.toFixed(4)}, ${lng.toFixed(4)}</strong>
+            <small>(Latitude, Longitude)</small>
+        `;
+
+        // Enable submit button
+        document.getElementById('submit-btn').disabled = false;
+        document.getElementById('submit-btn').classList.add('enabled');
+
+        // Add visual feedback
+        const coordDisplay = document.getElementById('coord-display');
+        coordDisplay.classList.add('coord-selected');
+    }
+
+    // Form validation
+    document.getElementById('story-form').addEventListener('submit', function(e) {
+        const lat = document.getElementById('latitude').value;
+        const lng = document.getElementById('longitude').value;
+        
+        if (!lat || !lng) {
+            e.preventDefault();
+            alert('Please select a location on the map before submitting your story!');
+            return false;
+        }
+    });
+
+    // Initialize when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeSubmissionMap();
+    });
+</script>
+
+
 
 {% endblock %}
-

@@ -38,6 +38,8 @@
     </main>
 
     {{ locationdata|json_script:"mapdata1" }}
+    {{ locationdata_user|json_script:"mapdata2" }}
+
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>
@@ -58,6 +60,14 @@
             className: 'custom-marker'
         });
 
+        // Custom icon for haunted locations
+        var alternatehauntedIcon = L.divIcon({
+            html: '💀',
+            iconSize: [30, 30],
+            className: 'custom-marker'
+        });
+
+
         // Function to handle each GeoJSON feature
         function onEachFeature(feature, layer) {
             // Does this feature have a property named popupContent?
@@ -74,8 +84,9 @@
         // Load and display haunted locations from Django data
         try {
             var geojsonFeature1 = JSON.parse(document.getElementById('mapdata1').textContent);
-            
-            console.log(geojsonFeature1);
+            var geojsonFeature2 = JSON.parse(document.getElementById('mapdata2').textContent);
+
+            // console.log(geojsonFeature1);
 
             // Check if we have valid GeoJSON data with features
             if (geojsonFeature1 && geojsonFeature1.features && geojsonFeature1.features.length > 0) {
@@ -87,6 +98,18 @@
                     },
                     onEachFeature: onEachFeature
                 }).addTo(map);
+
+            // Check if we have valid GeoJSON data for the second layer
+            if (geojsonFeature2 && geojsonFeature2.features && geojsonFeature2.features.length > 0) {
+                var layer2 = L.geoJSON(geojsonFeature2, {
+                    pointToLayer: function (feature, latlng) {
+                        // You can add a different icon for the second layer if you want.
+                        return L.marker(latlng, {icon: alternatehauntedIcon});
+                    },
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+                allLayers.push(layer2);
+            }
 
                 // Calculate bounds to fit all markers
                 var geojsonLayer = L.geoJSON(geojsonFeature1);
