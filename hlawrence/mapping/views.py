@@ -158,8 +158,7 @@ def haunting_detail(request, story_id):
 
 
 def haunting_search(request):
-	"""Haunting stories listing page"""
-	# Get all approved stories, with featured ones first
+	# Get all hauntings described in Haunting Lawrence
 	story_dict = haunting_searchset()
 			
 	context = {
