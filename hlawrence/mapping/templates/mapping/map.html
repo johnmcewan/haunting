@@ -67,7 +67,6 @@
             className: 'custom-marker'
         });
 
-
         // Function to handle each GeoJSON feature
         function onEachFeature(feature, layer) {
             // Does this feature have a property named popupContent?
@@ -125,7 +124,7 @@
         } catch (error) {
             console.error('Error parsing mapdata1:', error);
             // Fallback to sample locations if parsing fails
-            addSampleLocations();
+            //addSampleLocations();
         }
 
         // Fallback function for sample locations
