@@ -5,172 +5,668 @@
 {% block content %}
 
     <main class="main-content">
-        <div class="map-container">
-            <h2 class="map-title">🏚️ Map of Haunted Locations 🏚️</h2>
-            <div id="map"></div>
-        </div>
-
-        <div class="info-section">
-            <div class="info-card">
-                <h3 class="card-title">👻 Paranormal Encounters</h3>
-                <p class="card-text">
-                    Lawrence is home to numerous documented paranormal activities. From the historic Eldridge Hotel 
-                    to the mysterious campus buildings at KU, each location holds its own dark secrets and ghostly residents.
+        <div class="about-container">
+            
+            <!-- Hero Section -->
+            <div class="about-hero">
+                <h1 class="about-title">👻 About Haunted Lawrence 👻</h1>
+                <p class="about-subtitle">
+                    Uncovering the supernatural secrets of Lawrence, Kansas - where history and haunting collide
                 </p>
             </div>
 
-            <div class="info-card">
-                <h3 class="card-title">🕯️ Historical Mysteries</h3>
-                <p class="card-text">
-                    Built on a foundation of Civil War history and frontier tales, Lawrence's haunted locations 
-                    are deeply intertwined with the city's tumultuous past. Each spirit has a story to tell.
-                </p>
-            </div>
+            <!-- Main Content Grid -->
+            <div class="about-content">
+                
+                <!-- Project Story -->
+                <section class="content-section">
+                    <h2 class="section-title">🏚️ Our Dark Mission</h2>
+                    <div class="section-content">
+                        <p>
+                            Welcome to Haunted Lawrence, a digital archive dedicated to documenting and preserving 
+                            the rich paranormal history of Lawrence, Kansas. Founded on the belief that every ghost 
+                            has a story to tell, our project serves as a bridge between the living and the departed, 
+                            ensuring that no spirit is forgotten.
+                        </p>
+                        <p>
+                            Lawrence's turbulent past - from Bleeding Kansas to the Civil War, from frontier settlements 
+                            to modern academia - has left an indelible mark on the spiritual landscape. Our interactive 
+                            map reveals the locations where the veil between worlds grows thin, where echoes of the past 
+                            continue to resonate in the present.
+                        </p>
+                    </div>
+                </section>
 
-            <div class="info-card">
-                <h3 class="card-title">🌙 Night Tours Available</h3>
-                <p class="card-text">
-                    Join us for guided tours through Lawrence's most haunted locations. Experience firsthand 
-                    the supernatural phenomena that have made this city a hotspot for paranormal investigators.
-                </p>
+                <!-- Statistics -->
+                <section class="content-section stats-section">
+                    <h2 class="section-title">📊 By the Numbers</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-number">{{ total_stories|default:"50+" }}</div>
+                            <div class="stat-label">Documented Cases</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">175+</div>
+                            <div class="stat-label">Years of History</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">25+</div>
+                            <div class="stat-label">Haunted Locations</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Mysteries Unsolved</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- How It Works -->
+                <section class="content-section">
+                    <h2 class="section-title">🔮 How It Works</h2>
+                    <div class="process-grid">
+                        <div class="process-step">
+                            <div class="process-icon">📚</div>
+                            <h3>Historical Research</h3>
+                            <p>We meticulously research historical records, newspaper archives, and local folklore to verify and document each paranormal encounter.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-icon">👥</div>
+                            <h3>Community Stories</h3>
+                            <p>Local residents and visitors contribute their own supernatural experiences, creating a living archive of Lawrence's ghostly encounters.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-icon">🗺️</div>
+                            <h3>Interactive Mapping</h3>
+                            <p>Each verified haunting is precisely located on our interactive map, allowing visitors to explore Lawrence's paranormal landscape.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="process-icon">🔍</div>
+                            <h3>Ongoing Investigation</h3>
+                            <p>Our team continues to investigate new reports and update existing cases as more information comes to light.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Stories Preview -->
+                {% if recent_stories %}
+                <section class="content-section">
+                    <h2 class="section-title">👻 Recent Encounters</h2>
+                    <div class="recent-stories">
+                        {% for story in recent_stories %}
+                        <div class="story-preview">
+                            <h4 class="story-preview-title">{{ story.title }}</h4>
+                            <div class="story-preview-meta">
+                                <span>By {{ story.display_author }}</span>
+                                <span>•</span>
+                                <span>{{ story.submitted_at|date:"M d, Y" }}</span>
+                            </div>
+                            <p class="story-preview-text">{{ story.story|truncatewords:25 }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="stories-link">
+                        <a href="/browse" class="explore-btn">👁️ Explore All Cases</a>
+                    </div>
+                </section>
+                {% endif %}
+
+                <!-- Lawrence History -->
+                <section class="content-section">
+                    <h2 class="section-title">⚰️ Why Lawrence is Haunted</h2>
+                    <div class="section-content">
+                        <div class="history-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-year">1854</div>
+                                <div class="timeline-content">
+                                    <h4>Bleeding Kansas</h4>
+                                    <p>Founded during the violent Bleeding Kansas period, Lawrence was born from conflict and bloodshed, setting the stage for restless spirits.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">1863</div>
+                                <div class="timeline-content">
+                                    <h4>Quantrill's Raid</h4>
+                                    <p>William Quantrill's Confederate raiders burned much of Lawrence, killing over 150 men and boys. The trauma of this massacre left deep spiritual scars.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">1866</div>
+                                <div class="timeline-content">
+                                    <h4>University Founded</h4>
+                                    <p>The University of Kansas was established, bringing centuries of accumulated knowledge, experiments, and young lives to the area.</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-year">Present</div>
+                                <div class="timeline-content">
+                                    <h4>Modern Hauntings</h4>
+                                    <p>Today, Lawrence's rich history continues to manifest in paranormal activity, with new encounters reported regularly throughout the city.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Types of Hauntings -->
+                <section class="content-section">
+                    <h2 class="section-title">👺 Types of Supernatural Activity</h2>
+                    <div class="haunting-types">
+                        <div class="type-card">
+                            <div class="type-icon">👻</div>
+                            <h4>Residual Hauntings</h4>
+                            <p>Echoes of traumatic events that replay like recordings, often tied to Lawrence's violent past.</p>
+                        </div>
+                        <div class="type-card">
+                            <div class="type-icon">🤝</div>
+                            <h4>Intelligent Spirits</h4>
+                            <p>Interactive entities that communicate with the living, often former residents with unfinished business.</p>
+                        </div>
+                        <div class="type-card">
+                            <div class="type-icon">👤</div>
+                            <h4>Shadow People</h4>
+                            <p>Dark, shadowy figures glimpsed in peripheral vision, particularly common in older buildings.</p>
+                        </div>
+                        <div class="type-card">
+                            <div class="type-icon">⚡</div>
+                            <h4>Poltergeist Activity</h4>
+                            <p>Unexplained physical phenomena including moving objects, electrical disturbances, and temperature fluctuations.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Call to Action -->
+                <section class="content-section cta-section">
+                    <h2 class="section-title">🕯️ Join Our Investigation</h2>
+                    <div class="cta-content">
+                        <p>
+                            Have you experienced something unexplainable in Lawrence? Your story could be the missing piece 
+                            in understanding our city's supernatural puzzle. Every encounter matters, no matter how small.
+                        </p>
+                        <div class="cta-buttons">
+                            <a href="/story" class="cta-btn primary">📝 Share Your Story</a>
+                            <a href="/map" class="cta-btn secondary">🗺️ Explore the Map</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact & Social -->
+                <section class="content-section">
+                    <h2 class="section-title">📞 Contact the Beyond</h2>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <h4>🔬 Research Inquiries</h4>
+                            <p>For academic research, historical verification, or collaboration opportunities.</p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>👻 Report a Haunting</h4>
+                            <p>Encountered something supernatural? We want to hear from you.</p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>🎭 Media & Events</h4>
+                            <p>Tours, presentations, and paranormal investigation events.</p>
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </div>
     </main>
 
-    {{ locationdata|json_script:"mapdata1" }}
-    {{ locationdata_user|json_script:"mapdata2" }}
+    <style>
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
 
+        .about-hero {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            border: 2px solid #8B4513;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script>
-        // Initialize the map with dark theme
-        var map = L.map('map').setView([38.9717, -95.2353], 13);
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #d4a574, #ff6b35);
+        }
 
-        // Add a dark tile layer
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(map);
+        .about-title {
+            font-family: 'Creepster', cursive;
+            font-size: 3rem;
+            color: #ff6b35;
+            text-shadow: 3px 3px 0px #000, -3px -3px 0px #000, 3px -3px 0px #000, -3px 3px 0px #000,
+                         0 0 20px #ff6b35, 0 0 40px #ff6b35;
+            margin-bottom: 1rem;
+            animation: flicker 4s infinite alternate;
+        }
 
-        // Custom icon for haunted locations
-        var hauntedIcon = L.divIcon({
-            html: '👻',
-            iconSize: [30, 30],
-            className: 'custom-marker'
-        });
+        .about-subtitle {
+            font-family: 'Griffy', cursive;
+            font-size: 1.3rem;
+            color: #d4a574;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
 
-        // Custom icon for haunted locations
-        var alternatehauntedIcon = L.divIcon({
-            html: '💀',
-            iconSize: [30, 30],
-            className: 'custom-marker'
-        });
+        .about-content {
+            display: grid;
+            gap: 3rem;
+        }
 
+        .content-section {
+            background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 2px solid #8B4513;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
 
-        // Function to handle each GeoJSON feature
-        function onEachFeature(feature, layer) {
-            // Does this feature have a property named popupContent?
-            if (feature.properties && feature.properties.popupContent) {
-                layer.bindPopup(feature.properties.popupContent);
+        .content-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #d4a574, #ff6b35);
+        }
+
+        .section-title {
+            font-family: 'Griffy', cursive;
+            font-size: 1.8rem;
+            color: #ff6b35;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .section-content p {
+            color: #e0e0e0;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            border: 1px solid #8B4513;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6b35;
+            font-family: 'Griffy', cursive;
+            text-shadow: 0 0 10px #ff6b35;
+        }
+
+        .stat-label {
+            color: #d4a574;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Process Grid */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .process-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.5));
+        }
+
+        .process-step h3 {
+            color: #d4a574;
+            font-family: 'Griffy', cursive;
+            margin-bottom: 1rem;
+        }
+
+        .process-step p {
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        /* Recent Stories */
+        .recent-stories {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .story-preview {
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            border: 1px solid #8B4513;
+        }
+
+        .story-preview-title {
+            color: #ff6b35;
+            font-family: 'Griffy', cursive;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-preview-meta {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .story-preview-text {
+            color: #c0c0c0;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .stories-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        /* Timeline */
+        .history-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 1rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #ff6b35, #d4a574);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: #ff6b35;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff6b35;
+        }
+
+        .timeline-year {
+            color: #ff6b35;
+            font-family: 'Griffy', cursive;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h4 {
+            color: #d4a574;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: #c0c0c0;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Haunting Types */
+        .haunting-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .type-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            border: 1px solid #8B4513;
+            transition: transform 0.3s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .type-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .type-card h4 {
+            color: #d4a574;
+            font-family: 'Griffy', cursive;
+            margin-bottom: 1rem;
+        }
+
+        .type-card p {
+            color: #c0c0c0;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(145deg, #8B4513, #ff6b35);
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-family: 'Griffy', cursive;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn.primary {
+            background: rgba(0,0,0,0.3);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-btn.secondary {
+            background: white;
+            color: #8B4513;
+            border: 2px solid white;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .explore-btn {
+            display: inline-block;
+            background: linear-gradient(145deg, #8B4513, #ff6b35);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-family: 'Griffy', cursive;
+            transition: all 0.3s ease;
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Contact Grid */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            border: 1px solid #8B4513;
+        }
+
+        .contact-item h4 {
+            color: #ff6b35;
+            font-family: 'Griffy', cursive;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item p {
+            color: #c0c0c0;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-title {
+                font-size: 2.5rem;
             }
             
-            // Add hover effect to open popup
-            layer.on('mouseover', function (e) {
-                this.openPopup();
-            });
-        }
-
-        // Load and display haunted locations from Django data
-        try {
-            var geojsonFeature1 = JSON.parse(document.getElementById('mapdata1').textContent);
-            var geojsonFeature2 = JSON.parse(document.getElementById('mapdata2').textContent);
-
-            // console.log(geojsonFeature1);
-
-            // Check if we have valid GeoJSON data with features
-            if (geojsonFeature1 && geojsonFeature1.features && geojsonFeature1.features.length > 0) {
-                
-                // Add GeoJSON layer with custom styling and popup handling
-                L.geoJSON(geojsonFeature1, {
-                    pointToLayer: function (feature, latlng) {
-                        return L.marker(latlng, {icon: hauntedIcon});
-                    },
-                    onEachFeature: onEachFeature
-                }).addTo(map);
-
-            // Check if we have valid GeoJSON data for the second layer
-            if (geojsonFeature2 && geojsonFeature2.features && geojsonFeature2.features.length > 0) {
-                var layer2 = L.geoJSON(geojsonFeature2, {
-                    pointToLayer: function (feature, latlng) {
-                        // You can add a different icon for the second layer if you want.
-                        return L.marker(latlng, {icon: alternatehauntedIcon});
-                    },
-                    onEachFeature: onEachFeature
-                }).addTo(map);
-                allLayers.push(layer2);
+            .about-subtitle {
+                font-size: 1.1rem;
             }
-
-                // Calculate bounds to fit all markers
-                var geojsonLayer = L.geoJSON(geojsonFeature1);
-                if (geojsonLayer.getBounds().isValid()) {
-                    map.fitBounds(geojsonLayer.getBounds(), {padding: [20, 20]});
-                }
-                
-            } else {
-                // Fallback to sample locations if no data
-                console.log('No haunted location data found, using sample locations');
-                addSampleLocations();
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-        } catch (error) {
-            console.error('Error parsing mapdata1:', error);
-            // Fallback to sample locations if parsing fails
-            addSampleLocations();
+            
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .haunting-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .history-timeline {
+                padding-left: 1rem;
+            }
+            
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
         }
+    </style>
 
-        // Fallback function for sample locations
-        function addSampleLocations() {
-            var sampleLocations = [
-                {
-                    coords: [38.9717, -95.2353],
-                    name: 'Downtown Lawrence',
-                    description: 'Historic downtown area with multiple haunted buildings'
-                },
-                {
-                    coords: [38.9576, -95.2478],
-                    name: 'University of Kansas',
-                    description: 'Campus buildings with reported paranormal activity'
-                },
-                {
-                    coords: [38.9704, -95.2352],
-                    name: 'Eldridge Hotel',
-                    description: 'Historic hotel with numerous ghost sightings'
-                }
-            ];
+    <script>
+        // Initialize particles
+        createParticles();
 
-            sampleLocations.forEach(function(location) {
-                L.marker(location.coords, {icon: hauntedIcon})
-                    .addTo(map)
-                    .bindPopup(`<strong>${location.name}</strong><br>${location.description}`)
-                    .on('mouseover', function (e) {
-                        this.openPopup();
-                    });
+        // Add spooky animations on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                observer.observe(section);
             });
-        }
 
-        // Add spooky map styling
-        map.on('zoomend', function() {
-            document.querySelectorAll('.leaflet-marker-icon').forEach(function(marker) {
-                marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
+            // Add hover effects to stat cards
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.boxShadow = '0 10px 20px rgba(255, 107, 53, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = 'none';
+                });
             });
         });
 
-        // Apply initial styling to markers
-        setTimeout(function() {
-            document.querySelectorAll('.leaflet-marker-icon').forEach(function(marker) {
-                marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
-            });
-        }, 500);
+        // Add CSS animation keyframes
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 
 {% endblock %}

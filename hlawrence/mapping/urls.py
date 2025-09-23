@@ -1,17 +1,3 @@
-# from django.urls import path
-
-# from . import views
-
-# urlpatterns = [
-#     path("", views.index, name="index"),
-#     path('home', views.index, name="home"),
-#     path('about', views.about, name="about"),
-#     path('story', views.story, name="story"),
-#     path('credit', views.credit, name="credit"),
-#     path('haunting', views.haunting, name="haunting"),
-# ]
-
-
 # urls.py
 from django.urls import path
 from . import views
@@ -22,6 +8,7 @@ urlpatterns = [
     # Main pages
     path('', views.index, name='index'),
     path('home', views.index, name='index'),
+    path('map/', views.map, name ='map'),
     path('haunting/', views.haunting_search, name='haunting'),
     path('about/', views.about, name='about'),
     path('story/', views.submitstory, name='submitstory'),

@@ -13,8 +13,20 @@ from .forms import StorySubmissionForm
 import json
 
 
-
 def index(request):
+	"""About page"""
+	# Get some statistics
+	total_stories = HauntedStory.objects.filter(approved=True).count()
+	recent_stories = HauntedStory.objects.filter(approved=True).order_by('-submitted_at')[:3]
+	
+	context = {
+		'total_stories': total_stories,
+		'recent_stories': recent_stories,
+	}
+	
+	return render(request, 'mapping/index.html', context)
+
+def map(request):
 	# Get cases from Haunting Lawrence Book
 	location_dict = locationgather()
 	mapdic, center_long, center_lat = locationdata(location_dict)
@@ -26,7 +38,7 @@ def index(request):
 		"features": [story.get_geojson_feature() for story in approved_stories]
 	}
 		
-	template = loader.get_template('mapping/index.html')
+	template = loader.get_template('mapping/map.html')
 	context = {
 		'locationdata': mapdic,
 		'locationdata_user': story_geojson,  # Use story data instead of original locationdata
