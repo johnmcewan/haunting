@@ -4,12 +4,14 @@ import statistics
 def haunting_searchset():
 	stories = Haunting.objects.all().select_related(
 		'fk_location__location_name',
-		'fk_hauntingtype__hauntingtype').values(
+		'fk_hauntingtype__hauntingtype',
+		'fk_location__location_photo').values(
 		'id_haunting',
 		'haunting_name',
 		'haunting_storyabstract',
 		'fk_location__location_name',
 		'fk_hauntingtype__hauntingtype',
+		'fk_location__location_photo'
 		)
 
 	story_dict = {}
@@ -22,6 +24,7 @@ def haunting_searchset():
 		ghost['haunting_storyabstract'] = g['haunting_storyabstract']
 		ghost['location_name'] = g['fk_location__location_name']
 		ghost['hauntingtype'] = g['fk_hauntingtype__hauntingtype']
+		ghost['location_photo'] = g['fk_location__location_photo']
 
 		story_dict[ghost['id_haunting']] = ghost
 
@@ -100,7 +103,7 @@ def locationdata(location_object):
 		if type(loc['latitude']) == int or type(loc['latitude']) == float:
 			lat_values.append(loc['latitude'])
 
-		popupcontent = '<a href="entity/' + str(value1) + '">' + str(value2) + '</a>'
+		popupcontent = '<a href="haunting/' + str(value1) + '">' + str(value2) + '</a>'
 
 		# if value3 > 0:
 		# 	popupcontent = popupcontent + ' ' + str(value3)
