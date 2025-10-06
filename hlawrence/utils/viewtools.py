@@ -97,16 +97,25 @@ def locationdata(location_object):
 		# value3 = loc.count
 		value4 = loc['longitude']
 		value5 = loc['latitude']
+		value6 = loc['location_photo']
 
 		if type(loc['longitude']) == int or type(loc['longitude']) == float:
 			long_values.append(loc['longitude'])
 		if type(loc['latitude']) == int or type(loc['latitude']) == float:
 			lat_values.append(loc['latitude'])
 
-		popupcontent = '<a href="haunting/' + str(value1) + '">' + str(value2) + '</a>'
+		#popupcontent = '<a href="/haunting/' + str(value1) + '">' + str(value2) + '</a>'
 
-		# if value3 > 0:
-		# 	popupcontent = popupcontent + ' ' + str(value3)
+		# Build popup content with thumbnail image
+		popupcontent = '<div class="popup-container">'
+		
+		# Add thumbnail image if photo exists
+		if value6:
+			popupcontent += f'<img src="/static/images/locations/{value6}" class="popup-thumbnail" alt="{value2}">'
+		
+		# Add location name link
+		popupcontent += f'<a href="/haunting/{value1}" class="popup-link">{value2}</a>'
+		popupcontent += '</div>'
 
 		properties = {"id_location": value1, "location": value2, "popupContent": popupcontent}
 		geometry = {"type": "Point", "coordinates": [value4, value5]}

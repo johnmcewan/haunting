@@ -45,26 +45,37 @@
                     <div class="haunting-card" 
                          data-haunting-type="{{ ghost.hauntingtype|default:'Unknown' }}"
                          data-location="{{ ghost.location_name|default:'Unknown Location' }}">
-                        
+                                    
                         <div class="haunting-card-header">
                             <h3 class="haunting-title">
                                 <a href="/haunting/{{ ghost.id_haunting }}">
                                     {{ ghost.haunting_name|default:"Unnamed Haunting" }}
                                 </a>
                             </h3>
+
+                        {% if ghost.location_photo %}
+                        <div class="haunting-card-image">
+                            <img src="{% static 'images/locations/' %}{{ ghost.location_photo }}" 
+                                 alt="{{ ghost.location_name|default:'Haunted Location' }}"
+                                 onerror="this.parentElement.style.display='none';">
+                        </div>
+                        {% endif %}
+                            
                             <div class="haunting-meta">
-                                <span class="haunting-type">
+  <!--                               <span class="haunting-type">
                                     {% if ghost.hauntingtype %}
                                         🏷️ {{ ghost.hauntingtype }}
                                     {% else %}
                                         🏷️ Unknown Type
                                     {% endif %}
-                                </span>
+                                </span> -->
                                 <span class="haunting-location">
                                     📍 {{ ghost.location_name|default:"Unknown Location" }}
                                 </span>
                             </div>
                         </div>
+
+
                         
                         <div class="haunting-card-body">
                             {% if ghost.haunting_storyabstract %}

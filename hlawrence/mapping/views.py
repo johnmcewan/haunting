@@ -41,7 +41,7 @@ def map(request):
 	template = loader.get_template('mapping/map.html')
 	context = {
 		'locationdata': mapdic,
-		'locationdata_user': story_geojson,  # Use story data instead of original locationdata
+		'locationdata_user': story_geojson,
 		'story_count': approved_stories.count(),
 	}
 	
