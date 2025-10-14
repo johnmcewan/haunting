@@ -1,0 +1,107 @@
+{% extends "mapping/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <main class="main-content">
+        <div class="credits-container">
+            <h1>Meet Our Amazing Team</h1>
+            <p class="intro-text">This website was built by two incredible programmers</p>
+            
+            <div class="developer-cards">
+                <!-- Isabella's Card -->
+                <div class="developer-card">
+                    <div class="photo-placeholder">
+                        <svg width="150" height="150" viewBox="0 0 150 150">
+                            <circle cx="75" cy="75" r="70" fill="#FFD700" stroke="#333" stroke-width="3"/>
+                            <circle cx="55" cy="60" r="8" fill="#333"/>
+                            <circle cx="95" cy="60" r="8" fill="#333"/>
+                            <path d="M 45 85 Q 75 110 105 85" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h2>Isabella</h2>
+                    <p class="description">An amazing programmer who brought creativity and technical excellence to every aspect of this website.</p>
+                </div>
+
+                <!-- Kaziwa's Card -->
+                <div class="developer-card">
+                    <div class="photo-placeholder">
+                        <svg width="150" height="150" viewBox="0 0 150 150">
+                            <circle cx="75" cy="75" r="70" fill="#FFD700" stroke="#333" stroke-width="3"/>
+                            <circle cx="55" cy="60" r="8" fill="#333"/>
+                            <circle cx="95" cy="60" r="8" fill="#333"/>
+                            <path d="M 45 85 Q 75 110 105 85" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h2>Kaziwa</h2>
+                    <p class="description">An amazing programmer who crafted elegant solutions and helped build this website with skill and dedication.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        .credits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .credits-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .intro-text {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 50px;
+        }
+
+        .developer-cards {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .developer-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .developer-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .photo-placeholder {
+            margin-bottom: 20px;
+        }
+
+        .developer-card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .description {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #555;
+        }
+    </style>
+
+    <script>
+        // Initialize particles
+        createParticles();
+    </script>
+
+{% endblock %}
