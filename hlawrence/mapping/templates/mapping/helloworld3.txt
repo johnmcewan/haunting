@@ -1,6 +1,0 @@
-<!DOCTYPE html>
-<html lang="en">
-
-hello world hello hello? Are you are out there?
-
-<a title="David Keddie, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:The_Great_Globe,_Guyot_Hall,_Princeton_University.jpg"><img width="256" alt="The Great Globe, Guyot Hall, Princeton University" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/The_Great_Globe%2C_Guyot_Hall%2C_Princeton_University.jpg/256px-The_Great_Globe%2C_Guyot_Hall%2C_Princeton_University.jpg?20150616174727"></a>
