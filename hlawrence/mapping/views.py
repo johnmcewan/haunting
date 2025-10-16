@@ -197,4 +197,4 @@ def about(request):
 
 def credit(request):
 	"""Credits page"""
-	return render(request, 'mapping/credit2.html', {})
+	return render(request, 'mapping/credit3.html', {})
