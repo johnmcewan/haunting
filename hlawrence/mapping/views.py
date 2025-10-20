@@ -155,8 +155,8 @@ def haunting_detail(request, story_id):
 	context = {
 		'haunting': story,
 	}
-	
-	return render(request, 'mapping/haunting.html', context)
+
+	return render(request, 'mapping/haunting2.html', context)
 
 
 def haunting_search(request):
@@ -187,10 +187,10 @@ def about(request):
 
 def credit(request):
 
-	credit = Credit = Contributor.objects.all()	
+	credit = Contributor.objects.all()	
 
 	context = {
 		'credit': credit,
 	}
 	
-	return render(request, 'mapping/credit.html', context)
+	return render(request, 'mapping/credit3.html', context)

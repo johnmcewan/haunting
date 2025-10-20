@@ -1,0 +1,119 @@
+{% extends "mapping/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <main class="main-content haunting-detail-page">
+        
+        {% if haunting %}
+            <article class="haunting-story">
+                
+                <h2 class="haunting-name">{{ haunting.haunting_name|default:"A Ghostly Tale" }}</h2>
+                
+                <div class="haunting-meta">
+                    {% if haunting.fk_location %}
+                        <p class="haunting-location">
+                            <span class="icon">📍</span>
+                            <strong>Location:</strong> {{ haunting.fk_location }}
+                        </p>
+                    {% endif %}
+                    {% if haunting.fk_hauntingtype %}
+                        <p class="haunting-type">
+                            <span class="icon">👻</span>
+                            <strong>Type of Haunting:</strong> {{ haunting.fk_hauntingtype }}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <hr class="story-separator">
+
+                {% if haunting.haunting_storyabstract %}
+                    <section class="story-abstract">
+                        <h3>Abstract</h3>
+                        <p class="abstract-text">{{ haunting.haunting_storyabstract }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_deathstory %}
+                    <section class="death-story">
+                        <h3>The Death Story</h3>
+                        <p>{{ haunting.haunting_deathstory|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_behavior %}
+                    <section class="haunting-behavior">
+                        <h3>Behavior and Manifestations</h3>
+                        <p>{{ haunting.haunting_behavior|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+                
+                {% if haunting.haunting_discoveryofhaunting %}
+                    <section class="discovery-story">
+                        <h3>Discovery of the Haunting</h3>
+                        <p>{{ haunting.haunting_discoveryofhaunting|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_physicaldetails %}
+                    <section class="physical-details">
+                        <h3>Physical Details</h3>
+                        <p>{{ haunting.haunting_physicaldetails|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_timeline %}
+                    <section class="haunting-timeline">
+                        <h3>Timeline</h3>
+                        <p>{{ haunting.haunting_timeline|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_booktext %}
+                    <section class="book-excerpt">
+                        <h3>Full Story Excerpt</h3>
+                        <div class="excerpt-text">{{ haunting.haunting_booktext|linebreaks }}</div>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                <section class="book-reference">
+                    {% if haunting.haunting_pagestart and haunting.haunting_pageend %}
+                        <p>
+                            <span class="icon">📚</span>
+                            This story appears in the book *Haunted Lawrence* on pages 
+                            <strong>{{ haunting.haunting_pagestart }}–{{ haunting.haunting_pageend }}</strong>.
+                        </p>
+                    {% elif haunting.haunting_pagestart %}
+                        <p>
+                            <span class="icon">📚</span>
+                            This story appears in the book *Haunted Lawrence* starting on page 
+                            <strong>{{ haunting.haunting_pagestart }}</strong>.
+                        </p>
+                    {% endif %}
+                    
+                    {% comment %} Note: The short story field (haunting_storyshort) is typically used for a very brief map popup, so it's usually not displayed here, but you can add it if needed. {% endcomment %}
+                </section>
+                
+            </article>
+        {% else %}
+            <div class="story-not-found-message">
+                <h2>Story Not Found </h2>
+                <p>The requested ghostly tale could not be located. Perhaps it vanished into the mist. <a href="/map">Return to the Map</a>.</p>
+            </div>
+        {% endif %}
+
+    </main>
+
+    <script>
+        // Initialize particles
+        createParticles();
+    </script>
+
+{% endblock %}

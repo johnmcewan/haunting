@@ -672,3 +672,92 @@ body {
         background: rgba(255, 107, 53, 0.15);
     }
 }
+/* ========================================= */
+/* STAR WARS CRAWL STYLES */
+/* ========================================= */
+
+.star-wars-scroll-container {
+    /* Set up the 3D viewing environment */
+    perspective: 800px; 
+    overflow: hidden; /* Hide content outside the main area */
+    height: 600px; /* Define a viewing height for the crawl */
+    position: relative;
+    z-index: 10;
+    /* Ensure no margins/padding interfere with the full screen effect if possible */
+    padding: 0;
+    margin: 0;
+    
+    /* Center the perspective view */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Start the crawl from the top of the container */
+}
+
+.crawl-container {
+    /* Create the area where the crawl text lives */
+    position: absolute;
+    top: 100%; /* Start the text completely below the bottom of the container */
+    height: auto;
+    width: 60%; /* Define the width of the text column */
+    max-width: 800px; /* Optional: limit text width */
+    transform-origin: 50% 100%; /* Rotate around the bottom center */
+    
+    /* Apply the 3D rotation (the iconic look) */
+    transform: rotateX(25deg); 
+    
+    /* Start the animation */
+    animation: crawl-scroll 30s linear forwards; /* Adjust time (e.g., 60s, 120s) for speed */
+}
+
+.crawl {
+    /* Text alignment and color */
+    color: #ffd700; /* Gold/Yellow color for Star Wars text */
+    text-align: justify;
+    font-family: 'Cinzel', serif; /* Use a more formal font from your base.html */
+    font-size: 200%;
+    line-height: 1.5;
+    
+    /* Create the fade effect on the text as it moves up */
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+}
+
+.crawl-title {
+    color: #00bfff; /* A distinct color for the title */
+    text-align: center;
+    font-size: 250%;
+    margin-bottom: 3em;
+}
+
+.crawl-heading {
+    text-align: center;
+    font-size: 150%;
+    margin: 2em 0 1em;
+}
+
+.contributor-entry h3 {
+    text-align: center;
+    font-size: 120%;
+    margin-bottom: 0.5em;
+    color: #fff; /* White for the name */
+}
+
+.contributor-role-notes,
+.contributor-status {
+    text-align: center;
+    font-size: 80%;
+}
+
+
+/* The Keyframe Animation */
+@keyframes crawl-scroll {
+    from {
+        /* Start text off-screen below the container */
+        top: 100%;
+    }
+    to {
+        /* INCREASE this value to ensure all content moves past the top edge. 
+           Try -300% or even -400% if -250% isn't enough. */
+        top: -500%; 
+    }
+}
