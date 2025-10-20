@@ -152,18 +152,8 @@ def haunting_detail(request, story_id):
 		messages.error(request, "Story not found.")
 		return redirect('index')
 	
-	# # Get nearby stories (within ~1km)
-	# lat_range = 0.01  # Approximately 1km
-	# lng_range = 0.01
-	
-	# nearby_stories = HauntedStory.objects.filter(
-	# 	latitude__range=(float(story.latitude) - lat_range, float(story.latitude) + lat_range),
-	# 	longitude__range=(float(story.longitude) - lng_range, float(story.longitude) + lng_range)
-	# ).exclude(id=story.id)[:5]
-	
 	context = {
 		'haunting': story,
-		# 'nearby_stories': nearby_stories,
 	}
 	
 	return render(request, 'mapping/haunting.html', context)
@@ -196,5 +186,11 @@ def about(request):
 
 
 def credit(request):
-	"""Credits page"""
-	return render(request, 'mapping/credit3.html', {})
+
+	credit = Credit = Contributor.objects.all()	
+
+	context = {
+		'credit': credit,
+	}
+	
+	return render(request, 'mapping/credit.html', context)
