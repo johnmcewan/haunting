@@ -1,0 +1,73 @@
+"id_location","location_name","location_street","location_housenumber","location_houseletter","longitude","latitude","location_notes","location_photo","location_history","location_namecurrent","location_nameformer"
+1,"The Albach House","Tennessee Street",1701,"","-95.23978050330838","38.95381897318093","38.95381897318093, -95.23978050330838","1701TennesseeSt.jpg","","",""
+2,"The Goodrich House","Massachusetts Street",1711,"","-95.23629014563828","38.95334509586018","38.95334509586018, -95.23629014563828","",NULL,NULL,NULL
+3,"Undetermined","Undetermined",NULL,"","-95.24260281414313","38.9592439733953","38.9592439733953, -95.24260281414313","",NULL,NULL,NULL
+4,"Corbin Hall","W 11th St",420,"","-95.24093380125876","38.96493334974387","38.96493334974387, -95.24093380125876; 420 W 11th St, Lawrence, KS 66045","420W11St_CorbinHall.jpg","","Corbin Hall","Corbin House"
+5,"Pioneer Cemetery","Irving Hill Rd",2201,"","-95.262018","38.952693","","","-Memorial to the early settlers of Lawrence, KS
+-First buried: Moses Pomeroy (1854)
+-Originally called “Oread Cemetery”
+-Victims of Quantrill’s Raid were buried here after the attack, but later moved to “Oak Hill Cemetery"" which replaced Pioneer Cemetery as the de facto cemetery of Lawrence
+-Oak Hill Cemetery established in 1865
+-The final burial in Oread Cemetery was Alfred and Sarah Peake (1882)
+-Later in the 1880s Oread Cemetery was desecrated by mischievous youths
+-In 1906, local undertaker Charles Smith working with the Grand Army of the Republic veterans’ organization, arranged for a monument to “the Unknown Dead -Union Soldiers of the Civil War” to be erected in the cemetery, as well as burial markers for eighteen members of the Thirteenth Wisconsin Volunteer Infantry Regiment who had been interred there in 1862.
+-Named Pioneer Cemetery by Lawrence mayor Robert Rankin in 1928
+-KU chancellor Franklin David Murphy convinced the KU Endowment Association to purchase the land in 1952
+-Psychic claimed to communicate with the spirit of a deceased soldier in the graveyard","Pioneer Cemetery","Oread Cemetery"
+6,"Haskell Indian Nations University","Indian Ave, Lawrence, KS 66046",155,"E","-95.23305453221643","38.94008821539954","","","","Haskell Indian Nations University",""
+7,"Miller's Hall","Massachusetts St.",NULL,"","-95.23622285841888","38.97033320653101","","723MassSt.jpg","-Named after Free Stater Josiah Miller
+-One of only two buildings to survive Quantrill’s Raid
+-Various sections and whole floors were added onto the building between 1856-1863
+-Third floor was the de facto town hall (Elizabeth Cady Stanton, Susan B. Anthony, James Lane, John Brown had attended meetings there)
+-Josiah Miller (owner/founder of the Miller Hall) was involved in a wagon incident in 1870, resulting in one of his legs being infected with gangrene. He died on July 7, 1870 after doctors amputated the leg but couldn't stop the spread","",""
+8,"The Old Lawrence Community Theatre","New Hampshire St.",1501,"","-95.235015","38.957003","","","-House stood on site at 1501
+-Building erected in 1948 by Church of Christ as a church (replacing old house)
+-Church was sold in 1964 to the Full Gospel Christian Assembly
+-By it 1970s it housed the Full Gospel Christian Assembly which dissolved in the mid 80s
+-Bought by the Community Theatre in 1985 and renovated 
+-First production was I Was Here a Moment Ago by local playwright John Clifford
+-Fire destroyed two-thirds of the theatre’s costumes (faulty lighting fixture)
+-In 2013 the Lawrence Community Theatre moved to a new building on Bauer Farm Drive in west Lawrence
+-In 2014 the former theatre was converted to a church again and is now home of the Vintage Church","Vintage Church","Church of Christ // Full Gospel Christian Assembly // Lawrence Community Theatre"
+9,"The C.J. Eriksen Building","Massachusetts St.",936,"","-95.235553","38.966126","","","-Constructed 1899 by Danish immigrant C.J. Eriksen (died 1925) as a furniture store
+-His first wife Mathilda Eriksen (died April, 25 1905) loved the store and spent much of her time caring for the store","The Toy Store","C.J. Eriksen Furniture Store"
+10,"Parmenter Hall","Eighth St.",618,"","-95.189429","38.779266","","","-Opened November 22, 1858 (oldest continually operating institution of higher learning in KS)
+-Union Soldier was said to have raised the alarm on Quantill’s men who had just burned Lawrence, and was allegedly murdered as a result
+-Theatre major Stuart McCoy (died August 29, 1976 in Kappa Sigma fraternity house)","","Palmyra Settlement"
+11,"Weaver Bottoms","North 1600 Rd.",NULL,"","-95.067786","38.976647","-Northeastern corner of Douglas County
+-Topeka and Santa Fe Railroads ran through the area
+-Weaver Bottom is located around North 1600 Road, just south of a bend in the Kaw River. The train tracks that run through this area can be crossed by driving along County Line Road.","","-Cut off from the world by a loop in the Kaw River
+-Once home to a small settlement called Weaver
+-Consistent flooding led to the area being closed off by the U.S. Army Corps of Engineers except to farmers","","Weaver Hamlet"
+12,"Stull Cemetery","N 1600 Rd.",256,"","-96.453736","38.971659","-Legends are pretty much all fake, but caught the attention of the grunge scene and people intrigued by the occult
+-""Gateway to Hell""","","-Settlement founded in 1856 by mostly Germans and was known as Deer Creek
+-Post office opened by Silvester Stull
+-Named after Stull in 1899
+-Small limestone chapel on Emmanuel Hill (Evangelical Emmanuel Church) 1867-1922
+Cemetery founded in 1869 and named “Stull Cemetery” in 1946
+-100 years worth of folk stories
+-Accusations of witchcraft post death due to an old tree defacing some people’s graves
+Claims came from KU newspaper University Daily Kansan in 1974 that the devil appeared in the graveyard during Halloween and the spring equinox - story was exaggerated in KU 
+-Demolished on March 29, 2002","",""
+13,"Northwestern Bridge","",NULL,"","-95.233942","38.974995","https://www.kancoll.org/books/rowe/bridges.htm; https://lawrencebusinessmagazine.com/wp-content/themes/starkers-theme/images/2020-Q4/history/history-04.jpg","history-04.jpg","Used to cross the Kaw river and join Lawrence to the Weaver settlement. Lizzie Madden fell to her death from this bridge - foul play suspected.
+-The Lawrence Bridge Company was chartered by an act of the Territorial Legislature to construct a bridge connecting North and South Lawrence across the Kaw river in 1859
+-During construction, Quantrill's raid of 1863 killed seven laborers and a subcontractor - causing stockholders of the Lawrence Bridge Company to loose properties and money
+- In December of 1863, the bridge was finished, and it opened for travel at the beginning of 1864
+- The bridge was a toll bridge and the only bridge crossing the Kaw for several years, so it was a lucrative investment
+- In 1897, the State Supreme Court ruled that the charter of the Lawrence Bridge Company was annulled and placed the property into the control of the state
+- Several disasters assaulted the bridge over the following decades, causing it to deteriorate beyond use by 1913
+- A new bridge was built in January of 1917, and the old Northwestern Bridge was demolished","",""
+14,"The Priestly House","1505 Kentucky Street",NULL,"","-95.238607271164","38.956874245573296","","1505KentuckySt.jpg","","",""
+15,"Pete Vinegar Lynching Site","",NULL,"","-95.236271","38.974127","","","","",""
+17,"The Vaughn House","",NULL,"","-95.186728","38.775859","Unable to find exact house. Pin has been placed based on book description as being situated in the middle of Baldwin City.","","","",""
+18,"Merchant's National Bank","746 Massachusetts St",746,"","-95.23568321286004","38.96956283329048","","746MassSt.jpg","","Merchant's Pub & Plate","Merchant's National Bank"
+19,"The Eldridge Hotel","Massachusetts St",701,"","-95.23628177910959","38.97105835046039","","701MassSt.jpg","","The Eldridge Hotel","The Eldridge Hotel"
+20,"Kennedy Elementary School","",NULL,"","-95.2156257996764","38.947180762428765","","","","Kennedy Elementary School","Kennedy Elementary School"
+21,"Cordley Elementary School","",NULL,"","-95.23740121496853","38.9506716225889","","1837VermontSt_Cordley.jpg","","",""
+22,"Stubbs Mansion","",NULL,"","-95.25404363124473","38.96509029990923","Sigma Nu, 1501 Sigma Nu Pl, Lawrence, KS 66044","1501SigmaNuPl.jpg","","",""
+23,"The Kenneth Spencer Research Library","",NULL,"","-95.24764805929561","38.95881654607648","","","","",""
+24,"Rhode Island Street","",NULL,"","-95.23354678275422","38.97173210984641","","","","",""
+25,"McAllaster House","724 Rhode Island Street",NULL,"","-95.23331182388371","38.97027881157064","","724RhodeIslandSt.jpg","","",""
+26,"Fuller-Woodward House","Tennessee St",615,"","-95.23973617602148","38.97254967731815","","615TennesseeSt.jpg","","",""
+27,"Old Castle Museum","5th St",511,"","-95.18488398835846","38.77764037808148","","","","",""
+28,"Rice Auditorium","",NULL,"","-95.18836017781027","38.778878805631926","","","","",""
