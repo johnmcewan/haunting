@@ -27,7 +27,14 @@ SECRET_KEY = 'django-insecure-!l3kw3f86#mfj2(z5q%wt+r!x2g(4g8vzbm*-7=s=!^v5q%ubz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ["127.0.0.1", ".localhost"]
+ALLOWED_HOSTS = [
+"127.0.0.1", 
+".localhost",
+'haunting-jc6l.onrender.com',
+'www.hauntedlawrence.com',
+'hauntedlawrence.com'
+]
+
 #ALLOWED_HOSTS = ["*"]
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
