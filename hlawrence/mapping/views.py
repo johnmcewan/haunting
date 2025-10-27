@@ -144,6 +144,8 @@ def get_haunting_json(request):
 	return JsonResponse(geojson)
 
 
+
+
 def haunting_detail(request, story_id):
 	"""View individual story details"""
 	try:
@@ -152,11 +154,18 @@ def haunting_detail(request, story_id):
 		messages.error(request, "Story not found.")
 		return redirect('index')
 	
+	# Get location photo if location exists
+	location_photo = None
+	if story.fk_location:
+		location_photo = story.fk_location.location_photo
+	
 	context = {
 		'haunting': story,
+		'location_photo': location_photo,
 	}
 
 	return render(request, 'mapping/haunting2.html', context)
+
 
 
 def haunting_search(request):
