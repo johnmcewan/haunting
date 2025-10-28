@@ -1,3 +1,26 @@
+/* ========================================= */
+/* TABLE OF CONTENTS */
+/* ========================================= */
+/*
+  1. RESET & BASE STYLES
+  2. ANIMATIONS & KEYFRAMES
+  3. LAYOUT & GRID
+  4. TYPOGRAPHY
+  5. HEADER & NAVIGATION
+  6. CARDS & CONTAINERS
+  7. MAP COMPONENTS
+  8. FORMS & INPUTS
+  9. BUTTONS
+  10. MESSAGES & NOTIFICATIONS
+  11. MARKERS & POPUPS
+  12. STAR WARS CRAWL
+  13. RESPONSIVE DESIGN
+*/
+
+/* ========================================= */
+/* 1. RESET & BASE STYLES */
+/* ========================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +36,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Animated background particles */
+/* Background particles */
 .particles {
     position: fixed;
     top: 0;
@@ -30,6 +53,10 @@ body {
     border-radius: 50%;
     animation: float 20s infinite linear;
 }
+
+/* ========================================= */
+/* 2. ANIMATIONS & KEYFRAMES */
+/* ========================================= */
 
 @keyframes float {
     0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -60,86 +87,50 @@ body {
     100% { transform: scale(1); }
 }
 
-/* Generic page structure */
+@keyframes crawl-scroll {
+    from { top: 100%; }
+    to { top: -500%; }
+}
+
+/* ========================================= */
+/* 3. LAYOUT & GRID */
+/* ========================================= */
+
 .grid {
     display: grid;
     grid-template-columns: 1fr repeat(9, minmax(auto, 8em)) 1fr;
     grid-template-rows: minmax(1em, auto);
 }
 
-/* Common card styling */
-.info-card,
-.location-selection,
-.story-form-section,
-.content-section {
-    background: linear-gradient(145deg, #2a2a3e, #1e1e30);
-    border-radius: 15px;
-    padding: 2rem;
-    border: 2px solid #8B4513;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.info-card::before,
-.content-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #ff6b35, #d4a574, #ff6b35);
-}
-
-.info-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(255, 107, 53, 0.2);
-}
-
-/* Common title styling */
-.card-title,
-.section-title {
-    font-family: 'Griffy', cursive;
-    color: #ff6b35;
-    margin-bottom: 1rem;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-}
-
-.card-title {
-    font-size: 1.5rem;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-}
-
-.submission-title {
-    font-family: 'Creepster', cursive;
-    font-size: 2.5rem;
-    color: #ff6b35;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    margin-bottom: 1rem;
-}
-
-/* Header styles */
-.header {
-    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
-    padding: 2rem 0;
-    text-align: center;
+.main-content {
     position: relative;
     z-index: 10;
-    border-bottom: 3px solid #8B4513;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    grid-row: 3;    
+    padding: 2rem;
+    grid-row: 4/8;
     grid-column: 1/12;
 }
 
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem auto;
+    max-width: 1200px;
+    grid-row: 7;
+}
+
+.submission-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+/* ========================================= */
+/* 4. TYPOGRAPHY */
+/* ========================================= */
+
+/* Primary Titles */
 .title {
     font-family: 'Creepster', cursive;
     font-size: 3.5rem;
@@ -150,22 +141,56 @@ body {
     animation: flicker 3s infinite alternate;
 }
 
-.subtitle,
-.submission-subtitle {
+.submission-title {
+    font-family: 'Creepster', cursive;
+    font-size: 2.5rem;
+    color: #ff6b35;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    margin-bottom: 1rem;
+}
+
+.map-title {
+    text-align: center;
     font-family: 'Griffy', cursive;
+    font-size: 2rem;
+    color: #ff6b35;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Section Titles */
+.card-title {
+    font-family: 'Griffy', cursive;
+    color: #ff6b35;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.section-title {
+    font-family: 'Griffy', cursive;
+    color: #ff6b35;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Subtitles & Descriptions */
+.subtitle {
+    font-family: 'Griffy', cursive;
+    font-size: 1.3rem;
     color: #d4a574;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     line-height: 1.6;
-}
-
-.subtitle {
-    font-size: 1.3rem;
     margin-bottom: 1rem;
 }
 
 .submission-subtitle {
+    font-family: 'Griffy', cursive;
     font-size: 1.1rem;
     color: #c0c0c0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
 }
@@ -179,84 +204,17 @@ body {
     padding: 0 1rem;
 }
 
-/* Main content */
-.main-content {
-    position: relative;
-    z-index: 10;
-    padding: 2rem;
-    grid-row: 4/8;
-    grid-column: 1/12;
-}
-
-/* Map containers */
-.map-container,
-#submission-map {
-    border-radius: 10px;
-    border: 2px solid #8B4513;
-}
-
-.map-container {
-    background: linear-gradient(145deg, #2a2a3e, #1e1e30);
-    padding: 2rem;
-    margin: 2rem auto;
-    max-width: 1200px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
-                inset 0 1px 0 rgba(255,255,255,0.1),
-                0 0 50px rgba(255, 107, 53, 0.1);
-    border: 2px solid #8B4513;
-    grid-row: 6;
-    grid-column: 3/8;
-}
-
-.map-title {
-    text-align: center;
-    font-family: 'Griffy', cursive;
-    font-size: 2rem;
-    color: #ff6b35;
-    margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
-
-#map {
-    height: 500px;
-    width: 100%;
-    border-radius: 10px;
-    border: 3px solid #8B4513;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-#submission-map {
-    height: 400px;
-    width: 100%;
-    margin-bottom: 1rem;
-}
-
-/* Info section */
-.info-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 3rem auto;
-    max-width: 1200px;
-    grid-row: 7;
-}
-
+/* Body Text */
 .card-text {
     line-height: 1.6;
     color: #c0c0c0;
 }
 
-/* Footer */
-.footer {
-    background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
-    padding: 2rem;
-    text-align: center;
-    margin-top: 4rem;
-    border-top: 3px solid #8B4513;
-    position: relative;
-    z-index: 10;
-    grid-row: 9;
-    grid-column: 1/12;
+.instruction {
+    color: #c0c0c0;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 .footer-text {
@@ -264,15 +222,32 @@ body {
     font-size: 0.9rem;
 }
 
-/* Custom map marker styles */
-.custom-marker {
-    background-color: #ff6b35;
-    border: 3px solid #8B4513;
-    border-radius: 50%;
-    box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
+.submission-note {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    font-style: italic;
 }
 
-/* Navigation Bar Styles */
+/* ========================================= */
+/* 5. HEADER & NAVIGATION */
+/* ========================================= */
+
+/* Header */
+.header {
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 100%);
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    border-bottom: 3px solid #8B4513;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    grid-row: 3;    
+    grid-column: 1/12;
+}
+
+/* Navigation Bar */
 .navbar {
     background: linear-gradient(145deg, rgba(0,0,0,0.95) 0%, rgba(26,26,46,0.95) 50%, rgba(0,0,0,0.95) 100%);
     padding: 1rem 0;
@@ -346,6 +321,10 @@ body {
     transform: translateY(-2px);
 }
 
+.nav-link:hover .nav-icon {
+    animation: spooky-bounce 0.6s ease-in-out;
+}
+
 .nav-link.active {
     color: #ff6b35;
     background: linear-gradient(145deg, rgba(255, 107, 53, 0.2), rgba(139, 69, 19, 0.2));
@@ -365,11 +344,7 @@ body {
     animation: pulse-glow 2s infinite alternate;
 }
 
-.nav-link:hover .nav-icon {
-    animation: spooky-bounce 0.6s ease-in-out;
-}
-
-/* Mobile menu toggle */
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
     display: none;
     background: none;
@@ -388,7 +363,58 @@ body {
     box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
 }
 
-/* Story submission styles */
+/* Footer */
+.footer {
+    background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-top: 3px solid #8B4513;
+    position: relative;
+    z-index: 10;
+    grid-row: 9;
+    grid-column: 1/12;
+}
+
+/* ========================================= */
+/* 6. CARDS & CONTAINERS */
+/* ========================================= */
+
+/* Base Card Styling */
+.info-card,
+.location-selection,
+.story-form-section,
+.content-section {
+    background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 2px solid #8B4513;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::before,
+.content-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ff6b35, #d4a574, #ff6b35);
+}
+
+.info-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4), 0 0 25px rgba(255, 107, 53, 0.2);
+}
+
+/* Story Submission Container */
 .story-submission-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -400,20 +426,7 @@ body {
     margin-bottom: 3rem;
 }
 
-.submission-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-}
-
-.instruction {
-    color: #c0c0c0;
-    margin-bottom: 1.5rem;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
+/* Coordinates Display */
 .coordinates-display {
     background: rgba(0,0,0,0.3);
     padding: 1rem;
@@ -436,7 +449,111 @@ body {
     text-shadow: 0 0 5px #ff6b35;
 }
 
-/* Form styles */
+/* Haunting Card Images */
+.haunting-card-image {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+}
+
+.haunting-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(0.3) contrast(1.1);
+}
+
+/* ========================================= */
+/* 7. MAP COMPONENTS */
+/* ========================================= */
+
+.map-container {
+    background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+    padding: 2rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 50px rgba(255, 107, 53, 0.1);
+    border: 2px solid #8B4513;
+    border-radius: 10px;
+    grid-row: 6;
+    grid-column: 3/8;
+}
+
+#map {
+    height: 500px;
+    width: 100%;
+    border-radius: 10px;
+    border: 3px solid #8B4513;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+#submission-map {
+    height: 400px;
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    border: 2px solid #8B4513;
+}
+
+/* Custom Map Markers */
+.custom-marker {
+    background-color: #ff6b35;
+    border: 3px solid #8B4513;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.6);
+}
+
+.user-location-marker {
+    background: transparent;
+    border: none;
+}
+
+.user-marker-pulse {
+    animation: pulse 2s infinite;
+    font-size: 24px;
+}
+
+.existing-story-marker {
+    opacity: 0.7;
+}
+
+/* Map Popups */
+.popup-container {
+    text-align: center;
+    min-width: 150px;
+}
+
+.popup-thumbnail {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    display: block;
+    border: 2px solid #8B4513;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.popup-link {
+    color: #ff6b35;
+    text-decoration: none;
+    font-family: 'Griffy', cursive;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+}
+
+.popup-link:hover {
+    text-shadow: 0 0 8px #ff6b35;
+}
+
+/* ========================================= */
+/* 8. FORMS & INPUTS */
+/* ========================================= */
+
 .form-group {
     margin-bottom: 1.5rem;
 }
@@ -473,7 +590,10 @@ body {
     min-height: 150px;
 }
 
-/* Button styles */
+/* ========================================= */
+/* 9. BUTTONS */
+/* ========================================= */
+
 .submit-btn {
     background: linear-gradient(145deg, #8B4513, #ff6b35);
     color: white;
@@ -501,15 +621,10 @@ body {
     box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
 }
 
-.submission-note {
-    text-align: center;
-    color: #888;
-    font-size: 0.9rem;
-    margin-top: 1rem;
-    font-style: italic;
-}
+/* ========================================= */
+/* 10. MESSAGES & NOTIFICATIONS */
+/* ========================================= */
 
-/* Messages */
 .messages {
     margin-bottom: 2rem;
 }
@@ -538,67 +653,81 @@ body {
     margin-top: 0.25rem;
 }
 
-/* Custom marker styles */
-.user-location-marker {
-    background: transparent;
-    border: none;
-}
+/* ========================================= */
+/* 11. MARKERS & POPUPS */
+/* ========================================= */
+/* (Consolidated in Map Components section above) */
 
-.user-marker-pulse {
-    animation: pulse 2s infinite;
-    font-size: 24px;
-}
+/* ========================================= */
+/* 12. STAR WARS CRAWL */
+/* ========================================= */
 
-.existing-story-marker {
-    opacity: 0.7;
-}
-
-/* Haunting card and popup images */
-.haunting-card-image {
-    width: 100%;
-    height: 100px;
+.star-wars-scroll-container {
+    perspective: 800px; 
     overflow: hidden;
+    height: 600px;
     position: relative;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
-.haunting-card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: sepia(0.3) contrast(1.1);
+.crawl-container {
+    position: absolute;
+    top: 100%;
+    height: auto;
+    width: 60%;
+    max-width: 800px;
+    transform-origin: 50% 100%;
+    transform: rotateX(25deg); 
+    animation: crawl-scroll 30s linear forwards;
 }
 
-.popup-container {
+.crawl {
+    color: #ffd700;
+    text-align: justify;
+    font-family: 'Cinzel', serif;
+    font-size: 200%;
+    line-height: 1.5;
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
+}
+
+.crawl-title {
+    color: #00bfff;
     text-align: center;
-    min-width: 150px;
+    font-size: 250%;
+    margin-bottom: 3em;
 }
 
-.popup-thumbnail {
-    width: 150px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 8px;
-    display: block;
-    border: 2px solid #8B4513;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+.crawl-heading {
+    text-align: center;
+    font-size: 150%;
+    margin: 2em 0 1em;
 }
 
-.popup-link {
-    color: #ff6b35;
-    text-decoration: none;
-    font-family: 'Griffy', cursive;
-    font-size: 1rem;
-    font-weight: bold;
-    display: block;
+.contributor-entry h3 {
+    text-align: center;
+    font-size: 120%;
+    margin-bottom: 0.5em;
+    color: #fff;
 }
 
-.popup-link:hover {
-    text-shadow: 0 0 8px #ff6b35;
+.contributor-role-notes,
+.contributor-status {
+    text-align: center;
+    font-size: 80%;
 }
 
-/* Responsive design */
+/* ========================================= */
+/* 13. RESPONSIVE DESIGN */
+/* ========================================= */
+
 @media (max-width: 768px) {
+    /* Typography */
     .title {
         font-size: 2.5rem;
     }
@@ -607,10 +736,21 @@ body {
         font-size: 1.1rem;
     }
     
+    .submission-title {
+        font-size: 2rem;
+    }
+    
+    /* Layout */
     .main-content {
         padding: 1rem;
     }
     
+    .submission-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Maps */
     .map-container {
         padding: 1rem;
     }
@@ -623,15 +763,7 @@ body {
         height: 300px;
     }
     
-    .submission-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .submission-title {
-        font-size: 2rem;
-    }
-    
+    /* Navigation */
     .mobile-menu-toggle {
         display: block;
     }
@@ -670,94 +802,5 @@ body {
     .nav-link:hover {
         transform: none;
         background: rgba(255, 107, 53, 0.15);
-    }
-}
-/* ========================================= */
-/* STAR WARS CRAWL STYLES */
-/* ========================================= */
-
-.star-wars-scroll-container {
-    /* Set up the 3D viewing environment */
-    perspective: 800px; 
-    overflow: hidden; /* Hide content outside the main area */
-    height: 600px; /* Define a viewing height for the crawl */
-    position: relative;
-    z-index: 10;
-    /* Ensure no margins/padding interfere with the full screen effect if possible */
-    padding: 0;
-    margin: 0;
-    
-    /* Center the perspective view */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Start the crawl from the top of the container */
-}
-
-.crawl-container {
-    /* Create the area where the crawl text lives */
-    position: absolute;
-    top: 100%; /* Start the text completely below the bottom of the container */
-    height: auto;
-    width: 60%; /* Define the width of the text column */
-    max-width: 800px; /* Optional: limit text width */
-    transform-origin: 50% 100%; /* Rotate around the bottom center */
-    
-    /* Apply the 3D rotation (the iconic look) */
-    transform: rotateX(25deg); 
-    
-    /* Start the animation */
-    animation: crawl-scroll 30s linear forwards; /* Adjust time (e.g., 60s, 120s) for speed */
-}
-
-.crawl {
-    /* Text alignment and color */
-    color: #ffd700; /* Gold/Yellow color for Star Wars text */
-    text-align: justify;
-    font-family: 'Cinzel', serif; /* Use a more formal font from your base.html */
-    font-size: 200%;
-    line-height: 1.5;
-    
-    /* Create the fade effect on the text as it moves up */
-    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-    mask-image: linear-gradient(to top, rgba(0,0,0,1) 75%, rgba(0,0,0,0) 100%);
-}
-
-.crawl-title {
-    color: #00bfff; /* A distinct color for the title */
-    text-align: center;
-    font-size: 250%;
-    margin-bottom: 3em;
-}
-
-.crawl-heading {
-    text-align: center;
-    font-size: 150%;
-    margin: 2em 0 1em;
-}
-
-.contributor-entry h3 {
-    text-align: center;
-    font-size: 120%;
-    margin-bottom: 0.5em;
-    color: #fff; /* White for the name */
-}
-
-.contributor-role-notes,
-.contributor-status {
-    text-align: center;
-    font-size: 80%;
-}
-
-
-/* The Keyframe Animation */
-@keyframes crawl-scroll {
-    from {
-        /* Start text off-screen below the container */
-        top: 100%;
-    }
-    to {
-        /* INCREASE this value to ensure all content moves past the top edge. 
-           Try -300% or even -400% if -250% isn't enough. */
-        top: -500%; 
     }
 }

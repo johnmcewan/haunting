@@ -144,28 +144,28 @@ def get_haunting_json(request):
 	return JsonResponse(geojson)
 
 
-
-
 def haunting_detail(request, story_id):
 	"""View individual story details"""
 	try:
 		story = Haunting.objects.get(id_haunting=story_id)
+
+		location = story.fk_location
+
+		# Get cases from Haunting Lawrence Book
+		location_dict = locationgather_single(story_id)
+		mapdic, center_long, center_lat = locationdata(location_dict)
+		
 	except Haunting.DoesNotExist:
 		messages.error(request, "Story not found.")
 		return redirect('index')
-	
-	# Get location photo if location exists
-	location_photo = None
-	if story.fk_location:
-		location_photo = story.fk_location.location_photo
-	
+		
 	context = {
 		'haunting': story,
-		'location_photo': location_photo,
+		'location': location,
+		'locationdata': mapdic,
 	}
 
-	return render(request, 'mapping/haunting2.html', context)
-
+	return render(request, 'mapping/haunting4b.html', context)
 
 
 def haunting_search(request):
@@ -174,7 +174,6 @@ def haunting_search(request):
 			
 	context = {
 		'haunting_set': story_dict,
-		# 'total_stories': stories.count(),
 	}
 	
 	return render(request, 'mapping/haunting_search.html', context)

@@ -1,0 +1,584 @@
+{% extends "mapping/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    /* Page-specific styles for haunting detail page */
+    .haunting-detail-page {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+    }
+
+    .haunting-story {
+        background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+        border-radius: 15px;
+        padding: 3rem;
+        border: 2px solid #8B4513;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .haunting-story::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #ff6b35, #d4a574, #ff6b35);
+    }
+
+    .haunting-name {
+        font-family: 'Creepster', cursive;
+        font-size: 3rem;
+        color: #ff6b35;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    /* Side-by-side layout for image and map */
+    .visual-content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin: 2rem 0 3rem 0;
+    }
+
+    .haunting-card-image {
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 2px solid #8B4513;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .haunting-card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: sepia(0.2) contrast(1.1);
+        transition: transform 0.3s ease;
+    }
+
+    .haunting-card-image:hover img {
+        transform: scale(1.05);
+    }
+
+    .map-container {
+        background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+        padding: 1.5rem;
+        border-radius: 10px;
+        border: 2px solid #8B4513;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    .map-title {
+        text-align: center;
+        font-family: 'Griffy', cursive;
+        font-size: 1.5rem;
+        color: #ff6b35;
+        margin-bottom: 1rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+
+    #map {
+        height: 320px;
+        width: 100%;
+        border-radius: 8px;
+        border: 2px solid #8B4513;
+    }
+
+    /* Meta information styling */
+    .haunting-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: rgba(0,0,0,0.2);
+        border-radius: 10px;
+        border: 1px solid #8B4513;
+    }
+
+    .haunting-location,
+    .haunting-type {
+        color: #d4a574;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin: 0;
+    }
+
+    .haunting-meta .icon {
+        font-size: 1.3rem;
+        margin-right: 0.5rem;
+    }
+
+    .haunting-meta strong {
+        color: #ff6b35;
+    }
+
+    /* Story sections with improved spacing */
+    .haunting-story section {
+        margin: 3rem 0;
+        padding: 0 1rem;
+    }
+
+    .haunting-story section h3 {
+        font-family: 'Griffy', cursive;
+        font-size: 1.8rem;
+        color: #ff6b35;
+        margin-bottom: 1.5rem;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        border-bottom: 2px solid #8B4513;
+        padding-bottom: 0.5rem;
+    }
+
+    .haunting-story section p {
+        color: #e0e0e0;
+        font-size: 1.1rem;
+        line-height: 2;
+        margin-bottom: 1.5rem;
+        text-align: justify;
+        text-indent: 2rem;
+    }
+
+    /* First paragraph no indent */
+    .haunting-story section p:first-of-type {
+        text-indent: 0;
+    }
+
+    /* Abstract section special styling */
+    .story-abstract {
+        background: rgba(255, 107, 53, 0.05);
+        padding: 2rem !important;
+        border-radius: 10px;
+        border-left: 4px solid #ff6b35;
+    }
+
+    .abstract-text {
+        font-style: italic;
+        font-size: 1.2rem !important;
+        color: #d4a574 !important;
+        line-height: 2.2 !important;
+    }
+
+    /* Excerpt section special styling */
+    .book-excerpt {
+        background: rgba(0,0,0,0.3);
+        padding: 2rem !important;
+        border-radius: 10px;
+        border: 1px solid #8B4513;
+    }
+
+    .excerpt-text {
+        font-family: 'Georgia', serif;
+        font-size: 1.05rem;
+        line-height: 2.2;
+        color: #c0c0c0;
+    }
+
+    /* Separator styling */
+    .story-separator,
+    .haunting-story hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #8B4513, transparent);
+        margin: 3rem 0;
+    }
+
+    /* Book reference section */
+    .book-reference {
+        background: linear-gradient(145deg, rgba(139, 69, 19, 0.2), rgba(255, 107, 53, 0.1));
+        padding: 1.5rem !important;
+        border-radius: 10px;
+        border: 2px solid #8B4513;
+        text-align: center;
+    }
+
+    .book-reference p {
+        font-size: 1.1rem !important;
+        color: #d4a574 !important;
+        margin: 0 !important;
+        text-indent: 0 !important;
+    }
+
+    .book-reference .icon {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .book-reference strong {
+        color: #ff6b35;
+        font-size: 1.2rem;
+    }
+
+    /* Story not found message */
+    .story-not-found-message {
+        background: linear-gradient(145deg, #2a2a3e, #1e1e30);
+        border-radius: 15px;
+        padding: 4rem 2rem;
+        border: 2px solid #8B4513;
+        text-align: center;
+        max-width: 800px;
+        margin: 4rem auto;
+    }
+
+    .story-not-found-message h2 {
+        font-family: 'Creepster', cursive;
+        font-size: 2.5rem;
+        color: #ff6b35;
+        margin-bottom: 1.5rem;
+    }
+
+    .story-not-found-message p {
+        font-size: 1.2rem;
+        color: #c0c0c0;
+        line-height: 1.8;
+    }
+
+    .story-not-found-message a {
+        color: #ff6b35;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+
+    .story-not-found-message a:hover {
+        text-shadow: 0 0 8px #ff6b35;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+        .visual-content-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .haunting-card-image {
+            height: 350px;
+        }
+
+        #map {
+            height: 400px;
+        }
+
+        .haunting-meta {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .haunting-detail-page {
+            padding: 2rem 1rem;
+        }
+
+        .haunting-story {
+            padding: 2rem 1.5rem;
+        }
+
+        .haunting-name {
+            font-size: 2rem;
+        }
+
+        .haunting-story section {
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .haunting-story section h3 {
+            font-size: 1.5rem;
+        }
+
+        .haunting-story section p {
+            font-size: 1rem;
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .abstract-text {
+            font-size: 1.1rem !important;
+        }
+
+        .haunting-card-image {
+            height: 250px;
+        }
+    }
+</style>
+
+    <main class="main-content haunting-detail-page">
+        
+        {% if haunting %}
+            <article class="haunting-story">
+                
+                <h2 class="haunting-name">{{ haunting.haunting_name|default:"A Ghostly Tale" }}</h2>
+                
+                <!-- Visual content grid: image and map side by side -->
+                <div class="visual-content-grid">
+                    {% if location.location_photo %}
+                    <div class="haunting-card-image">
+                        <img src="{% static 'images/locations/' %}{{ location.location_photo }}" 
+                             alt="{{ location.location_name|default:'Haunted Location' }}"
+                             onerror="this.parentElement.style.display='none';">
+                    </div>
+                    {% endif %}
+
+                    {% if haunting.fk_location %}
+                    <div class="map-container">
+                        <h2 class="map-title">🏚️ Map of Haunted Location 🏚️</h2>
+                        <div id="map"></div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="haunting-meta">
+                    {% if haunting.fk_location %}
+                        <p class="haunting-location">
+                            <span class="icon">📍</span>
+                            <strong>Location:</strong> {{ haunting.fk_location }}
+                        </p>
+                    {% endif %}
+                    {% if haunting.fk_hauntingtype %}
+                        <p class="haunting-type">
+                            <span class="icon">👻</span>
+                            <strong>Type of Haunting:</strong> {{ haunting.fk_hauntingtype }}
+                        </p>
+                    {% endif %}
+                </div>
+
+                <hr class="story-separator">
+
+                {% if haunting.haunting_storyabstract %}
+                    <section class="story-abstract">
+                        <h3>Abstract</h3>
+                        <p class="abstract-text">{{ haunting.haunting_storyabstract }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_deathstory %}
+                    <section class="death-story">
+                        <h3>The Death Story</h3>
+                        <p>{{ haunting.haunting_deathstory|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_behavior %}
+                    <section class="haunting-behavior">
+                        <h3>Behavior and Manifestations</h3>
+                        <p>{{ haunting.haunting_behavior|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+                
+                {% if haunting.haunting_discoveryofhaunting %}
+                    <section class="discovery-story">
+                        <h3>Discovery of the Haunting</h3>
+                        <p>{{ haunting.haunting_discoveryofhaunting|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_physicaldetails %}
+                    <section class="physical-details">
+                        <h3>Physical Details</h3>
+                        <p>{{ haunting.haunting_physicaldetails|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_timeline %}
+                    <section class="haunting-timeline">
+                        <h3>Timeline</h3>
+                        <p>{{ haunting.haunting_timeline|linebreaks }}</p>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                {% if haunting.haunting_booktext %}
+                    <section class="book-excerpt">
+                        <h3>Full Story Excerpt</h3>
+                        <div class="excerpt-text">{{ haunting.haunting_booktext|linebreaks }}</div>
+                    </section>
+                    <hr>
+                {% endif %}
+
+                <section class="book-reference">
+                    {% if haunting.haunting_pagestart and haunting.haunting_pageend %}
+                        <p>
+                            <span class="icon">📚</span>
+                            This story appears in the book *Haunted Lawrence* on pages 
+                            <strong>{{ haunting.haunting_pagestart }}–{{ haunting.haunting_pageend }}</strong>.
+                        </p>
+                    {% elif haunting.haunting_pagestart %}
+                        <p>
+                            <span class="icon">📚</span>
+                            This story appears in the book *Haunted Lawrence* starting on page 
+                            <strong>{{ haunting.haunting_pagestart }}</strong>.
+                        </p>
+                    {% endif %}
+                    
+                    {% comment %} Note: The short story field (haunting_storyshort) is typically used for a very brief map popup, so it's usually not displayed here, but you can add it if needed. {% endcomment %}
+                </section>
+                
+            </article>
+        {% else %}
+            <div class="story-not-found-message">
+                <h2>Story Not Found 👻</h2>
+                <p>The requested ghostly tale could not be located. Perhaps it vanished into the mist. <a href="/map">Return to the Map</a>.</p>
+            </div>
+        {% endif %}
+
+    </main>
+
+
+
+   {{ locationdata|json_script:"mapdata1" }}
+    {{ locationdata_user|json_script:"mapdata2" }}
+
+    <script>
+        // Initialize particles
+        createParticles();
+    </script>
+
+
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        // Initialize the map with dark theme
+        var map = L.map('map').setView([38.9717, -95.2353], 13);
+
+        // Add a dark tile layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Custom icon for haunted locations
+        var hauntedIcon = L.divIcon({
+            html: '👻',
+            iconSize: [30, 30],
+            className: 'custom-marker'
+        });
+
+        // Custom icon for haunted locations
+        var alternatehauntedIcon = L.divIcon({
+            html: '💀',
+            iconSize: [30, 30],
+            className: 'custom-marker'
+        });
+
+        // Function to handle each GeoJSON feature
+        function onEachFeature(feature, layer) {
+            // Does this feature have a property named popupContent?
+            if (feature.properties && feature.properties.popupContent) {
+                layer.bindPopup(feature.properties.popupContent);
+            }
+            
+            // Add hover effect to open popup
+            layer.on('mouseover', function (e) {
+                this.openPopup();
+            });
+        }
+
+        // Load and display haunted locations from Django data
+        try {
+            var geojsonFeature1 = JSON.parse(document.getElementById('mapdata1').textContent);
+            var geojsonFeature2 = JSON.parse(document.getElementById('mapdata2').textContent);
+
+            // console.log(geojsonFeature1);
+
+            // Check if we have valid GeoJSON data with features
+            if (geojsonFeature1 && geojsonFeature1.features && geojsonFeature1.features.length > 0) {
+                
+                // Add GeoJSON layer with custom styling and popup handling
+                L.geoJSON(geojsonFeature1, {
+                    pointToLayer: function (feature, latlng) {
+                        return L.marker(latlng, {icon: hauntedIcon});
+                    },
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+
+            // Check if we have valid GeoJSON data for the second layer
+            if (geojsonFeature2 && geojsonFeature2.features && geojsonFeature2.features.length > 0) {
+                var layer2 = L.geoJSON(geojsonFeature2, {
+                    pointToLayer: function (feature, latlng) {
+                        // You can add a different icon for the second layer if you want.
+                        return L.marker(latlng, {icon: alternatehauntedIcon});
+                    },
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+                allLayers.push(layer2);
+            }
+
+                // Calculate bounds to fit all markers
+                var geojsonLayer = L.geoJSON(geojsonFeature1);
+                if (geojsonLayer.getBounds().isValid()) {
+                    map.fitBounds(geojsonLayer.getBounds(), {padding: [20, 20]});
+                }
+                
+            } else {
+                // Fallback to sample locations if no data
+                console.log('No haunted location data found, using sample locations');
+                addSampleLocations();
+            }
+        } catch (error) {
+            console.error('Error parsing mapdata1:', error);
+            // Fallback to sample locations if parsing fails
+            //addSampleLocations();
+        }
+
+        // Fallback function for sample locations
+        function addSampleLocations() {
+            var sampleLocations = [
+                {
+                    coords: [38.9717, -95.2353],
+                    name: 'Downtown Lawrence',
+                    description: 'Historic downtown area with multiple haunted buildings'
+                },
+                {
+                    coords: [38.9576, -95.2478],
+                    name: 'University of Kansas',
+                    description: 'Campus buildings with reported paranormal activity'
+                },
+                {
+                    coords: [38.9704, -95.2352],
+                    name: 'Eldridge Hotel',
+                    description: 'Historic hotel with numerous ghost sightings'
+                }
+            ];
+
+            sampleLocations.forEach(function(location) {
+                L.marker(location.coords, {icon: hauntedIcon})
+                    .addTo(map)
+                    .bindPopup(`<strong>${location.name}</strong><br>${location.description}`)
+                    .on('mouseover', function (e) {
+                        this.openPopup();
+                    });
+            });
+        }
+
+        // Add spooky map styling
+        map.on('zoomend', function() {
+            document.querySelectorAll('.leaflet-marker-icon').forEach(function(marker) {
+                marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
+            });
+        });
+
+        // Apply initial styling to markers
+        setTimeout(function() {
+            document.querySelectorAll('.leaflet-marker-icon').forEach(function(marker) {
+                marker.style.filter = 'drop-shadow(0 0 10px #ff6b35)';
+            });
+        }, 500);
+    </script>
+
+
+
+{% endblock %}

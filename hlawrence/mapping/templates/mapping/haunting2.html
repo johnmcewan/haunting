@@ -10,6 +10,14 @@
                 
                 <h2 class="haunting-name">{{ haunting.haunting_name|default:"A Ghostly Tale" }}</h2>
                 
+                {% if location.location_photo %}
+                <div class="haunting-card-image">
+                    <img src="{% static 'images/locations/' %}{{ location.location_photo }}" 
+                         alt="{{ location.location_name|default:'Haunted Location' }}"
+                         onerror="this.parentElement.style.display='none';">
+                </div>
+                {% endif %}
+
                 <div class="haunting-meta">
                     {% if haunting.fk_location %}
                         <p class="haunting-location">
