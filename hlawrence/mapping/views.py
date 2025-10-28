@@ -164,7 +164,7 @@ def haunting_detail(request, story_id):
 		'location_photo': location_photo,
 	}
 
-	return render(request, 'mapping/haunting3.html', context)
+	return render(request, 'mapping/haunting2.html', context)
 
 
 
