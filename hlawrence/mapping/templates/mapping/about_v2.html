@@ -1,0 +1,99 @@
+{% extends "mapping/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+    <main class="main-content">
+        
+        <!-- Page Title -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <h1 class="map-title">About This Project</h1>
+            <p class="subtitle">Preserving Lawrence's Haunted History</p>
+        </div>
+
+        <!-- Info Grid using existing card styles -->
+        <section class="info-section">
+            
+            <!-- Book Card -->
+            <div class="info-card">
+                <h2 class="card-title">📖 The Source Material</h2>
+                <div class="card-text">
+                    <div style="text-align: center; margin: 1.5rem 0;">
+                        <img src="{% static 'images/hauntedlawrence.jpg' %}" 
+                             alt="Haunted Lawrence Book Cover"
+                             style="max-width: 100%; height: auto; border-radius: 10px; border: 2px solid #8B4513; box-shadow: 0 5px 15px rgba(0,0,0,0.3);">
+                    </div>
+                    <p style="line-height: 1.8;">
+                        This project is based on Paul Thomas' book 
+                        <a href='https://ravenbookstore.com/book/9781540227096' class="styled-link" target="_blank">Haunted Lawrence</a>, 
+                        a comprehensive collection of ghostly tales and paranormal encounters from Lawrence, Kansas. 
+                        The book serves as our foundation for documenting the supernatural history of this historic city.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Team Card -->
+            <div class="info-card">
+                <h2 class="card-title">👥 The Team</h2>
+                <div class="card-text">
+                    <p style="line-height: 1.8; margin-bottom: 1rem;">
+                        The project was created in the Fall of 2025 by a team of dedicated students at the 
+                        <a href="https://idrh.ku.edu/" class="styled-link" target="_blank">Institute for Digital Research in the Humanities</a> 
+                        at the University of Kansas.
+                    </p>
+                    <p style="line-height: 1.8;">
+                        Our mission is to make Lawrence's haunted history accessible to everyone through 
+                        interactive digital storytelling and community engagement.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Technology Card -->
+            <div class="info-card">
+                <h2 class="card-title">⚙️ The Technology</h2>
+                <div class="card-text">
+                    <p style="line-height: 1.8; margin-bottom: 1rem;">
+                        The project is built using 
+                        <a href="https://en.wikipedia.org/wiki/Django_(web_framework)" class="styled-link" target="_blank">Django</a>, 
+                        an open-source Python-based web framework named after the legendary guitarist Django Reinhardt.
+                    </p>
+                    <p style="line-height: 1.8;">
+                        Django was created in 2003 by programmers at the Lawrence Journal-World newspaper, 
+                        right here in Lawrence at the historic post office building on 7th and New Hampshire Streets—adding 
+                        another layer of local connection to our project.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Historical Image Section -->
+        <div class="content-section" style="max-width: 800px; margin: 3rem auto;">
+            <h2 class="section-title">🏛️ Django's Lawrence Roots</h2>
+            <div style="text-align: center;">
+                <img src="{% static 'images/django-LJW-7street.jpg' %}" 
+                     alt="Lawrence Journal-World Building"
+                     style="max-width: 100%; height: auto; border-radius: 10px; border: 2px solid #8B4513; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-top: 1rem;">
+                <p class="card-text" style="margin-top: 1rem; text-align: center; font-style: italic; color: #d4a574;">
+                    The historic Lawrence Journal-World building where Django was born
+                </p>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div style="text-align: center; margin: 3rem auto; max-width: 600px;">
+            <p class="subtitle" style="font-size: 1rem;">
+                Have a ghost story to share? Visit our 
+                <a href="/story" class="styled-link">Submit Story</a> page to add your experience to the map!
+            </p>
+        </div>
+
+    </main>
+
+    <script>
+        // Initialize particles
+        createParticles();
+    </script>
+
+{% endblock %}

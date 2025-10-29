@@ -194,7 +194,7 @@ def about(request):
 		'recent_stories': recent_stories,
 	}
 	
-	return render(request, 'mapping/about.html', context)
+	return render(request, 'mapping/about_v2.html', context)
 
 
 def credit(request):

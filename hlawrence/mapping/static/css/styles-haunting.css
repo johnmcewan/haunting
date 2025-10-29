@@ -17,6 +17,23 @@
   13. RESPONSIVE DESIGN
 */
 
+a.styled-link {
+    color: #ff6b35;
+    text-decoration: none;
+    background-image: linear-gradient(to right, #ff6b35 0%, #ff6b35 100%);
+    background-size: 0 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+a.styled-link:hover {
+    color: #ffa366;
+    background-size: 100% 1px;
+    text-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
 /* ========================================= */
 /* 1. RESET & BASE STYLES */
 /* ========================================= */
