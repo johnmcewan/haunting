@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haunted Lawrence QR Poster</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Griffy:wght@400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a2e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .poster {
+            width: 8.5in;
+            height: 11in;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            border: 8px solid #8B4513;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8),
+                        inset 0 0 100px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+
+        /* Animated particles */
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                box-shadow: 0 0 20px #ff6b35,
+                            0 0 40px #ff6b35,
+                            0 0 60px rgba(255, 107, 53, 0.5);
+            }
+            50% { 
+                box-shadow: 0 0 30px #ff6b35,
+                            0 0 60px #ff6b35,
+                            0 0 80px rgba(255, 107, 53, 0.7);
+            }
+        }
+
+        .title {
+            font-family: 'Creepster', cursive;
+            font-size: 72px;
+            color: #ff6b35;
+            text-align: center;
+            text-shadow: 3px 3px 0px #000,
+                         -3px -3px 0px #000,
+                         3px -3px 0px #000,
+                         -3px 3px 0px #000,
+                         0 0 30px #ff6b35;
+            margin-bottom: 20px;
+            animation: flicker 3s infinite alternate;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-family: 'Griffy', cursive;
+            font-size: 32px;
+            color: #d4a574;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 50px;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            border: 6px solid #8B4513;
+            box-shadow: 0 0 40px rgba(255, 107, 53, 0.6);
+            animation: glow 3s infinite;
+            margin-bottom: 40px;
+        }
+
+        .qr-placeholder {
+            width: 300px;
+            height: 300px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-placeholder img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .instructions {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            color: #e0e0e0;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .url {
+            font-family: 'Cinzel', serif;
+            font-size: 32px;
+            color: #ff6b35;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .feature {
+            font-family: 'Griffy', cursive;
+            font-size: 20px;
+            color: #c0c0c0;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .poster {
+                width: 8.5in;
+                height: 11in;
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+            }
+        }
+
+        /* Print button (won't show when printing) */
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(145deg, #8B4513, #ff6b35);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-family: 'Griffy', cursive;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .print-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        @media print {
+            .print-button {
+                display: none;
+            }
+        }
+
+        .instructions-text {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #8B4513;
+            margin: 20px 0;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">🖨️ Print Poster</button>
+
+    <div class="poster">
+        <!-- Animated particles -->
+        <div class="particle" style="width: 4px; height: 4px; left: 10%; animation-delay: 0s; animation-duration: 15s;"></div>
+        <div class="particle" style="width: 3px; height: 3px; left: 30%; animation-delay: 3s; animation-duration: 18s;"></div>
+        <div class="particle" style="width: 5px; height: 5px; left: 50%; animation-delay: 6s; animation-duration: 20s;"></div>
+        <div class="particle" style="width: 3px; height: 3px; left: 70%; animation-delay: 9s; animation-duration: 16s;"></div>
+        <div class="particle" style="width: 4px; height: 4px; left: 85%; animation-delay: 12s; animation-duration: 19s;"></div>
+
+        <h1 class="title">HAUNTED<br>LAWRENCE</h1>
+        <p class="subtitle">A Digital Ghost Tour</p>
+
+        <div class="qr-container">
+            <div class="qr-placeholder">
+                <!-- QR Code generated via API -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.hauntedlawrence.com&ecc=M" alt="QR Code to Haunted Lawrence">
+            </div>
+        </div>
+
+        <div class="instructions-text">
+            <p class="instructions">👻 Scan to Explore 👻</p>
+            <p class="url">hauntedlawrence.com</p>
+        </div>
+
+<!--         <div class="features">
+            <div class="feature">
+                <span class="icon">🗺️</span>
+                Interactive Map
+            </div>
+            <div class="feature">
+                <span class="icon">📖</span>
+                Ghost Stories
+            </div>
+            <div class="feature">
+                <span class="icon">✍️</span>
+                Share Your Tale
+            </div>
+        </div> -->
+
+        <div class="footer">
+            Institute for Digital Research in the Humanities • University of Kansas
+        </div>
+    </div>
+</body>
+</html>
