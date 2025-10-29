@@ -1,21 +1,41 @@
+JavaScript
+
+// 1. Get references to the elements
+const toggleButton = document.querySelector('.mobile-menu-toggle');
+const navMenu = document.querySelector('.nav-menu'); // This is the navigation container
+
+// 2. Attach a click event listener
+if (toggleButton) { // Check if the button exists before attaching the listener
+    toggleButton.addEventListener('click', () => {
+        // 3. The core function: toggle a class (e.g., 'open' or 'active')
+        navMenu.classList.toggle('open');
+        console.log("hamburger click");
+        
+        // OPTIONAL: Toggle an ARIA attribute for accessibility
+        const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true' || false;
+        toggleButton.setAttribute('aria-expanded', !isExpanded);
+    });
+}
+
+
 // Create floating particles
 function createParticles() {
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 30;
+	const particlesContainer = document.getElementById('particles');
+	const particleCount = 30;
 
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        const size = Math.random() * 4 + 2;
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        
-        particlesContainer.appendChild(particle);
-    }
+	for (let i = 0; i < particleCount; i++) {
+		const particle = document.createElement('div');
+		particle.className = 'particle';
+		
+		const size = Math.random() * 4 + 2;
+		particle.style.width = size + 'px';
+		particle.style.height = size + 'px';
+		particle.style.left = Math.random() * 100 + '%';
+		particle.style.animationDelay = Math.random() * 20 + 's';
+		particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+		
+		particlesContainer.appendChild(particle);
+	}
 }
 
 
@@ -26,50 +46,25 @@ function initializeNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     
     if (mobileToggle && navMenu) {
-        mobileToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation(); // Prevent immediate closure from document click
+        mobileToggle.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             
-            // Update toggle icon and aria-expanded
+            // Update toggle icon
             const icon = this.querySelector('span');
-            const isExpanded = navMenu.classList.contains('active');
-            
-            if (isExpanded) {
+            if (navMenu.classList.contains('active')) {
                 icon.textContent = '✕';
-                this.setAttribute('aria-expanded', 'true');
             } else {
                 icon.textContent = '☰';
-                this.setAttribute('aria-expanded', 'false');
             }
-            
-            console.log("Hamburger clicked, menu is now:", isExpanded ? "open" : "closed");
         });
         
         // Close mobile menu when clicking outside
-        // Use setTimeout to ensure this listener doesn't catch the same click that opened the menu
         document.addEventListener('click', function(e) {
-            // Only close if menu is open and click is outside both button and menu
-            if (navMenu.classList.contains('active') && 
-                !mobileToggle.contains(e.target) && 
-                !navMenu.contains(e.target)) {
+            if (!mobileToggle.contains(e.target) && !navMenu.contains(e.target)) {
                 navMenu.classList.remove('active');
                 const icon = mobileToggle.querySelector('span');
                 icon.textContent = '☰';
-                mobileToggle.setAttribute('aria-expanded', 'false');
-                console.log("Clicked outside, closing menu");
             }
-        });
-        
-        // Close mobile menu when clicking a nav link
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                const icon = mobileToggle.querySelector('span');
-                icon.textContent = '☰';
-                mobileToggle.setAttribute('aria-expanded', 'false');
-            });
         });
         
         // Close mobile menu when window is resized to desktop
@@ -78,7 +73,6 @@ function initializeNavigation() {
                 navMenu.classList.remove('active');
                 const icon = mobileToggle.querySelector('span');
                 icon.textContent = '☰';
-                mobileToggle.setAttribute('aria-expanded', 'false');
             }
         });
     }
@@ -147,7 +141,12 @@ function addNavSoundEffects() {
     });
 }
 
-// Initialize navigation - only once!
+// Initialize navigation when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeNavigation();
+});
+
+// Also initialize if this script loads after DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initializeNavigation);
 } else {

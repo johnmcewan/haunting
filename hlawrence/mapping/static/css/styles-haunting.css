@@ -726,6 +726,8 @@ body {
 /* 13. RESPONSIVE DESIGN */
 /* ========================================= */
 
+/* Replace the Navigation section in your responsive design (around line 13) */
+
 @media (max-width: 768px) {
     /* Typography */
     .title {
@@ -763,9 +765,15 @@ body {
         height: 300px;
     }
     
-    /* Navigation */
+    /* Navigation - FIXED VERSION */
+    .nav-container {
+        position: relative;
+    }
+    
     .mobile-menu-toggle {
         display: block;
+        position: relative;
+        z-index: 25;
     }
     
     .nav-menu {
@@ -778,29 +786,44 @@ body {
         border: 2px solid #8B4513;
         border-top: none;
         box-shadow: 0 5px 20px rgba(0,0,0,0.8);
-        transform: translateY(-10px);
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
         gap: 0;
-        padding: 1rem 0;
+        padding: 0;
+        margin: 0;
+        /* Hidden by default */
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
     }
     
     .nav-menu.active {
-        transform: translateY(0);
+        /* Shown when active */
+        max-height: 500px;
         opacity: 1;
-        visibility: visible;
+        padding: 1rem 0;
+    }
+    
+    .nav-item {
+        width: 100%;
     }
     
     .nav-link {
+        width: 100%;
         padding: 1rem 2rem;
-        margin: 0.25rem 0;
+        margin: 0;
         border-radius: 0;
         justify-content: center;
+        display: flex;
     }
     
     .nav-link:hover {
         transform: none;
         background: rgba(255, 107, 53, 0.15);
     }
+    
+    .nav-link.active::after {
+        display: none;
+    }
 }
+
+
