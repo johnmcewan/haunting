@@ -43,14 +43,14 @@
                     <div class="stats-grid">
                         <div class="stat-card">
                             <div class="stat-number">{{ total_stories|default:"50+" }}</div>
-                            <div class="stat-label">Documented Cases</div>
+                            <div class="stat-label">Spooky Incidents</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number">175+</div>
                             <div class="stat-label">Years of History</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-number">25+</div>
+                            <div class="stat-number">{{ total_locations|default:"50+" }}+</div>
                             <div class="stat-label">Haunted Locations</div>
                         </div>
                         <div class="stat-card">
@@ -100,7 +100,7 @@
                         {% endfor %}
                     </div>
                     <div class="stories-link">
-                        <a href="/browse" class="explore-btn">👁️ Explore All Cases</a>
+                        <a href="/haunting" class="explore-btn">👁️ Explore All Cases</a>
                     </div>
                 </section>
                 {% endif %}

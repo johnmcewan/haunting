@@ -42,23 +42,21 @@
 
     /* Side-by-side layout for image and map */
     .visual-content-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex; /* CHANGED: Switched to Flexbox */
         gap: 2rem;
         margin: 2rem 0 3rem 0;
-        align-items: start; /* Align items to the top */
+        justify-content: center; /* NEW: Centers the image and map horizontally */
+        align-items: flex-start; /* Ensures top alignment, equivalent to grid's align-items: start */
     }
 
     .haunting-card-image {
-        grid-row: 1;
+        flex: 1; /* NEW: Allows the image card to grow and shrink equally with the map */
         width: 100%;
         height: 450px; /* Match the total height of map container */
         overflow: hidden;
         border-radius: 10px;
         border: 2px solid #8B4513;
         box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        margin: 2rem auto;
-
     }
 
     .haunting-card-image img {
@@ -74,7 +72,7 @@
     }
 
     .map-container {
-        grid-row: 1;
+        flex: 1; /* NEW: Allows the map container to grow and shrink equally with the image card */
         background: linear-gradient(145deg, #2a2a3e, #1e1e30);
         padding: 1.5rem;
         border-radius: 10px;
@@ -83,7 +81,7 @@
         height: 450px; /* Fixed height to match image */
         display: flex;
         flex-direction: column;
-       margin: 0rem auto;
+        margin: 0 !important; 
     }
 
     .map-title {
@@ -266,11 +264,21 @@
     /* Responsive adjustments */
     @media (max-width: 1024px) {
         .visual-content-grid {
+            display: grid; /* Revert to grid for single-column stack */
             grid-template-columns: 1fr;
         }
 
+        .haunting-card-image, .map-container {
+            flex: unset; /* Remove flex property when stacking */
+        }
+        
         .haunting-card-image {
             height: 350px;
+        }
+
+        .map-container {
+             height: 450px; /* Re-set height for single-column layout */
+             margin: 0; /* Ensure no margins push it down in single column */
         }
 
         #map {
@@ -328,15 +336,7 @@
                 
                 <h2 class="haunting-name">{{ haunting.haunting_name|default:"A Ghostly Tale" }}</h2>
                 
-                <!-- Visual content grid: image and map side by side -->
                 <div class="visual-content-grid">
-                    {% if haunting.fk_location %}
-                    <div class="map-container">
-                        <h2 class="map-title">🏚️ Map of Haunted Location 🏚️</h2>
-                        <div id="map"></div>
-                    </div>
-                    {% endif %}
-                    
                     {% if location.location_photo %}
                     <div class="haunting-card-image">
                         <img src="{% static 'images/locations/' %}{{ location.location_photo }}" 
@@ -345,7 +345,12 @@
                     </div>
                     {% endif %}
 
-  
+                    {% if haunting.fk_location %}
+                    <div class="map-container">
+                        <h2 class="map-title">🏚️ Map of Haunted Location 🏚️</h2>
+                        <div id="map"></div>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="haunting-meta">

@@ -16,12 +16,16 @@ import json
 def index(request):
 	"""About page"""
 	# Get some statistics
-	total_stories = HauntedStory.objects.filter(approved=True).count()
+	total_stories = (HauntedStory.objects.filter(approved=True).count()) + (Haunting.objects.all().count())
+
 	recent_stories = HauntedStory.objects.filter(approved=True).order_by('-submitted_at')[:3]
+
+	total_locations = (Location.objects.all().count)
 	
 	context = {
 		'total_stories': total_stories,
 		'recent_stories': recent_stories,
+		'total_locations': total_locations,
 	}
 	
 	return render(request, 'mapping/index.html', context)
@@ -165,7 +169,7 @@ def haunting_detail(request, story_id):
 		'locationdata': mapdic,
 	}
 
-	return render(request, 'mapping/haunting4b.html', context)
+	return render(request, 'mapping/haunting4g.html', context)
 
 
 def haunting_search(request):

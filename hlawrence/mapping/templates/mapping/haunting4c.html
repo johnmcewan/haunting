@@ -57,8 +57,6 @@
         border-radius: 10px;
         border: 2px solid #8B4513;
         box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        margin: 2rem auto;
-
     }
 
     .haunting-card-image img {
@@ -83,7 +81,6 @@
         height: 450px; /* Fixed height to match image */
         display: flex;
         flex-direction: column;
-       margin: 0rem auto;
     }
 
     .map-title {
@@ -328,15 +325,7 @@
                 
                 <h2 class="haunting-name">{{ haunting.haunting_name|default:"A Ghostly Tale" }}</h2>
                 
-                <!-- Visual content grid: image and map side by side -->
                 <div class="visual-content-grid">
-                    {% if haunting.fk_location %}
-                    <div class="map-container">
-                        <h2 class="map-title">🏚️ Map of Haunted Location 🏚️</h2>
-                        <div id="map"></div>
-                    </div>
-                    {% endif %}
-                    
                     {% if location.location_photo %}
                     <div class="haunting-card-image">
                         <img src="{% static 'images/locations/' %}{{ location.location_photo }}" 
@@ -345,7 +334,12 @@
                     </div>
                     {% endif %}
 
-  
+                    {% if haunting.fk_location %}
+                    <div class="map-container">
+                        <h2 class="map-title">🏚️ Map of Haunted Location 🏚️</h2>
+                        <div id="map"></div>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="haunting-meta">

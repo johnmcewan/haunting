@@ -42,23 +42,21 @@
 
     /* Side-by-side layout for image and map */
     .visual-content-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex; /* CHANGED: Switched to Flexbox */
         gap: 2rem;
         margin: 2rem 0 3rem 0;
-        align-items: start; /* Align items to the top */
+        justify-content: center; /* NEW: Centers the image and map horizontally */
+        align-items: flex-start; /* Ensures top alignment, equivalent to grid's align-items: start */
     }
 
     .haunting-card-image {
-        grid-row: 1;
+        flex: 1; /* NEW: Allows the image card to grow and shrink equally with the map */
         width: 100%;
         height: 450px; /* Match the total height of map container */
         overflow: hidden;
         border-radius: 10px;
         border: 2px solid #8B4513;
         box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        margin: 2rem auto;
-
     }
 
     .haunting-card-image img {
@@ -74,7 +72,7 @@
     }
 
     .map-container {
-        grid-row: 1;
+        flex: 1; /* NEW: Allows the map container to grow and shrink equally with the image card */
         background: linear-gradient(145deg, #2a2a3e, #1e1e30);
         padding: 1.5rem;
         border-radius: 10px;
@@ -83,7 +81,7 @@
         height: 450px; /* Fixed height to match image */
         display: flex;
         flex-direction: column;
-       margin: 0rem auto;
+        margin: 0 !important; 
     }
 
     .map-title {
@@ -184,6 +182,7 @@
         padding: 2rem !important;
         border-radius: 10px;
         border: 1px solid #8B4513;
+        text-align: center; /* NEW: Center the heading */
     }
 
     .excerpt-text {
@@ -191,6 +190,16 @@
         font-size: 1.05rem;
         line-height: 2.2;
         color: #c0c0c0;
+        /* NEW: Ensure the container is block-level for centering its child paragraphs */
+        display: block;
+    }
+    
+    /* NEW: Center the multi-paragraph text block and give it a maximum width for readability */
+    .book-excerpt .excerpt-text p {
+        max-width: 800px; /* Limit line length for long centered text */
+        margin: 0 auto 1.5rem auto; /* Center the paragraph block and maintain bottom margin */
+        text-align: left; /* Keep the actual text content left-aligned for readability */
+        text-indent: 0; /* Remove indent for centered content */
     }
 
     /* Separator styling */
@@ -266,11 +275,21 @@
     /* Responsive adjustments */
     @media (max-width: 1024px) {
         .visual-content-grid {
+            display: grid; /* Revert to grid for single-column stack */
             grid-template-columns: 1fr;
         }
 
+        .haunting-card-image, .map-container {
+            flex: unset; /* Remove flex property when stacking */
+        }
+        
         .haunting-card-image {
             height: 350px;
+        }
+
+        .map-container {
+             height: 450px; /* Re-set height for single-column layout */
+             margin: 0; /* Ensure no margins push it down in single column */
         }
 
         #map {
@@ -280,6 +299,11 @@
         .haunting-meta {
             grid-template-columns: 1fr;
             gap: 1rem;
+        }
+        
+        .book-excerpt .excerpt-text p {
+             max-width: 100%; /* Use full width on small screens */
+             text-align: left; /* Keep left aligned */
         }
     }
 
@@ -328,15 +352,7 @@
                 
                 <h2 class="haunting-name">{{ haunting.haunting_name|default:"A Ghostly Tale" }}</h2>
                 
-                <!-- Visual content grid: image and map side by side -->
                 <div class="visual-content-grid">
-                    {% if haunting.fk_location %}
-                    <div class="map-container">
-                        <h2 class="map-title">🏚️ Map of Haunted Location 🏚️</h2>
-                        <div id="map"></div>
-                    </div>
-                    {% endif %}
-                    
                     {% if location.location_photo %}
                     <div class="haunting-card-image">
                         <img src="{% static 'images/locations/' %}{{ location.location_photo }}" 
@@ -345,7 +361,12 @@
                     </div>
                     {% endif %}
 
-  
+                    {% if haunting.fk_location %}
+                    <div class="map-container">
+                        <h2 class="map-title">Location</h2>
+                        <div id="map"></div>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <div class="haunting-meta">
@@ -415,7 +436,7 @@
 
                 {% if haunting.haunting_booktext %}
                     <section class="book-excerpt">
-                        <h3>Full Story Excerpt</h3>
+                        <h3>Full Story</h3>
                         <div class="excerpt-text">{{ haunting.haunting_booktext|linebreaks }}</div>
                     </section>
                     <hr>
